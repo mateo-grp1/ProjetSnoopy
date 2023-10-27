@@ -1,6 +1,6 @@
 #include <stdio.h>
 
 int main(){
-printf("Mateo est moche");
+printf("Samantha rote comme un bonhomme");
 return 0;
 }
