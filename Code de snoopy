@@ -1,0 +1,185 @@
+#include <iostream>
+#define ligne 10
+#define colonne 10
+#include "generation_map_test.h"
+
+/* Pour corriger le bound 10 :
+ * enlever les <= ligne/colonne
+ * mettre ligne et colonne à nombre demandé
+ */
+
+//VARIABLES
+extern char Tableau[ligne][colonne];
+//valeur de snoopy
+extern char S;
+//coordonnées initiales
+extern int Xi,Yi;
+char touche;
+//initialisation des différrents blocs
+extern char bordure,bloc_amovible,bloc_movible;
+
+//génération du tableau
+/*void generation_i()
+{
+    //initialisation de la bordure par colonne
+    for(int i = 0 ; i <= colonne ;i++)
+    {
+        if (i == 0 || i == colonne)
+        {
+            for (int j = 0; j <= ligne; j++)
+            {
+                Tableau[j][i] = bordure;
+            }
+        }
+    }
+    //initialisation de la bordure par ligne
+    for(int j = 0 ; j <= ligne ;j++)
+    {
+        if (j == 0 || j == ligne)
+        {
+            for (int i = 0; i <= colonne; i++)
+            {
+                Tableau[j][i] = bordure;
+            }
+        }
+    }
+    //impression initiale du tableau
+    Tableau[Xi][Yi] = S;
+    for(int i = 0 ; i <= colonne ;i++)
+    {
+        for( int j = 0 ; j <= ligne ; j++)
+        {
+            printf(" %c", Tableau[j][i]) ;
+        }
+        printf("\n");
+    }
+}*/
+// affichage du tableau
+void affichage_tableau()
+{
+    for(int i = 0 ; i < colonne ;i++)
+    {
+        for( int j = 0 ; j < ligne ; j++)
+        {
+            printf(" %c", Tableau[j][i]) ;
+        }
+        printf("\n");
+    }
+}
+int main()
+{
+    // intialisation snoopy
+    //generation_i();
+    int nbr_map ;
+    printf("Quel niveau voulez vous choirir ?\n1/2/3\n");
+    scanf("%d",&nbr_map);
+    printf("%d", generation_map_test(nbr_map));
+    //boucle d'édition des changements + appele de la fonct afficaheg pour les illustrer
+    //boucle d'acquisition
+    do
+    {
+        printf("Quel est votre direction ?\n"
+               "z:Haut q:Gauche s:Bas d:Droite e:Fin\n");
+        do
+        {
+            scanf("%c",&touche);
+        }while(!(touche == 'z'||touche == 'q'||touche == 's'||touche == 'd'|| touche =='e'));
+        //séléction de la direction
+        switch(touche)
+        {
+            //Mouv HAUT
+            case 'z':
+            {
+                //vérifiaction de la possibilité d'execution du mouvement en cas de bordure ou de bloc fixe
+                if(Tableau[Xi][Yi-1] == bloc_amovible||Tableau[Xi][Yi-1] == bordure)
+                {
+                    printf("Le mouvement n'est pas possible\n");
+                    affichage_tableau();
+                }
+                //déplacement permis si aucune autre condition n'est validé
+                else
+                {
+                    printf("le mouvement est vers le haut\n");
+                    //effacement de la position antèrieur
+                    Tableau[Xi][Yi] = ' ';
+                    //déplacement vers le haut
+                    Tableau[Xi][Yi-1] = S;
+                    //incrémentation pour la valeur initale suivante
+                    Yi--;
+                    //affichage de la modification
+                    affichage_tableau();
+                }
+                break;
+            }
+                //Mouv GAUCHE
+            case 'q':
+            {
+                //vérifiaction de la possibilité d'execution du mouvement
+                if(Tableau[Xi-1][Yi] == bloc_amovible||Tableau[Xi-1][Yi] == bordure)
+                {
+                    printf("Le mouvement n'est pas possible\n");
+                    affichage_tableau();
+                }
+                else
+                {
+                    printf("le mouvement est vers la gauche\n");
+                    //effacement de la position antèrieur
+                    Tableau[Xi][Yi] = ' ';
+                    //déplacement vers la gauche
+                    Tableau[Xi-1][Yi] = S;
+                    //incrémentation pour la valeur initale suivante
+                    Xi--;
+                    //affichage de la modification
+                    affichage_tableau();
+                }
+                break;
+            }
+                //Mouv BAS
+            case 's':
+            {
+                //vérifiaction de la possibilité d'execution du mouvement
+                if(Tableau[Xi][Yi+1] == bloc_amovible||Tableau[Xi][Yi+1] == bordure)
+                {
+                    printf("Le mouvement n'est pas possible\n");
+                    affichage_tableau();
+                }
+                else
+                {
+                    printf("le mouvement est vers le bas\n");
+                    //effacement de la position antèrieur
+                    Tableau[Xi][Yi] = ' ';
+                    //déplacement vers le bas
+                    Tableau[Xi][Yi+1] = S;
+                    //incrémentation pour la valeur initale suivante
+                    Yi++;
+                    //affichage de la modification
+                    affichage_tableau();
+                }
+                break;
+            }
+                //Mouv DROITE
+            case 'd':
+            {
+                //vérifiaction de la possibilité d'execution du mouvement
+                if(Tableau[Xi+1][Yi] == bloc_amovible||Tableau[Xi+1][Yi] == bordure)
+                {
+                    printf("Le mouvement n'est pas possible\n");
+                    affichage_tableau();
+                }
+                else
+                {
+                    printf("le mouvement est vers la droite\n");
+                    //effacement de la position antèrieur
+                    Tableau[Xi][Yi] = ' ';
+                    //déplacement vers le haut
+                    Tableau[Xi+1][Yi] = S;
+                    //incrémentation pour la valeur initale suivante
+                    Xi++;
+                    //affichage de la modification
+                    affichage_tableau();
+                }
+                break;
+            }
+        }
+    }while(touche != 'e');
+}
