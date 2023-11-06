@@ -1,0 +1,13 @@
+#include <stdio.h>
+
+char tab[11][11] = {{0xB, 0xF, }, // 1er ligne
+                    {0xF, 0xF,}, // 2em ligne
+                    {},
+                    {},
+                    }; // ainsi de suite
+
+int main() {
+    tab[0][0] = 'a'; // permet de modif une coordonnée du tableau
+    printf("%c", tab[0][0]); // afiche le tableau
+    return 0;
+}
