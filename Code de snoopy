@@ -1,7 +1,6 @@
-#include <iostream>
+#include <stdio.h>
 #define ligne 10
 #define colonne 10
-#include "generation_map_test.h"
 
 /* Pour corriger le bound 10 :
  * enlever les <= ligne/colonne
@@ -9,17 +8,19 @@
  */
 
 //VARIABLES
-extern char Tableau[ligne][colonne];
+char Tableau[ligne][colonne];
 //valeur de snoopy
-extern char S;
+char S = 4;
 //coordonnées initiales
-extern int Xi,Yi;
+int Xi = 2,Yi = 2;
 char touche;
+char p_ante = ' ';
 //initialisation des différrents blocs
-extern char bordure,bloc_amovible,bloc_movible;
+char bordure = 'X',bloc_amovible = 'A',bloc_movible = 'M';
+char trz = 'Z',trq = 'Q',trs = 'S',trd = 'D';
 
 //génération du tableau
-/*void generation_i()
+void generation_i()
 {
     //initialisation de la bordure par colonne
     for(int i = 0 ; i <= colonne ;i++)
@@ -53,7 +54,7 @@ extern char bordure,bloc_amovible,bloc_movible;
         }
         printf("\n");
     }
-}*/
+}
 // affichage du tableau
 void affichage_tableau()
 {
@@ -69,11 +70,7 @@ void affichage_tableau()
 int main()
 {
     // intialisation snoopy
-    //generation_i();
-    int nbr_map ;
-    printf("Quel niveau voulez vous choirir ?\n1/2/3\n");
-    scanf("%d",&nbr_map);
-    printf("%d", generation_map_test(nbr_map));
+    generation_i();
     //boucle d'édition des changements + appele de la fonct afficaheg pour les illustrer
     //boucle d'acquisition
     do
@@ -96,7 +93,7 @@ int main()
                     printf("Le mouvement n'est pas possible\n");
                     affichage_tableau();
                 }
-                //déplacement permis si aucune autre condition n'est validé
+                    //déplacement permis si aucune autre condition n'est validé
                 else
                 {
                     printf("le mouvement est vers le haut\n");
