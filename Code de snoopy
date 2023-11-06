@@ -58,9 +58,9 @@ void generation_i()
 // affichage du tableau
 void affichage_tableau()
 {
-    for(int i = 0 ; i < colonne ;i++)
+    for(int i = 0 ; i <= colonne ;i++)
     {
-        for( int j = 0 ; j < ligne ; j++)
+        for( int j = 0 ; j <= ligne ; j++)
         {
             printf(" %c", Tableau[j][i]) ;
         }
