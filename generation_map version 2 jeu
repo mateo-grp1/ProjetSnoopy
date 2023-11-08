@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include "biblio_fonction.h"
+
+
+/* Pour corriger le bound 10 :
+ * enlever les <= ligne/colonne
+ * mettre ligne et colonne à nombre demandé
+ */
+
+//VARIABLES
+extern char Tableau[ligne][colonne];
+//valeur de snoopy
+char S = 4;
+//coordonnées initiales
+int Xi = 2,Yi = 2;
+//initialisation des différrents blocs
+char vide = ' ';
+char bloc_amovible = 'B',bloc_movible = 'A';
+char trz= 'Z',trq= 'Q',trs = 'S',trd = 'D';
+
+// affichage du tableau
+void affichage_tableau()
+{
+    for(int i = 0 ; i <= colonne ;i++) {
+        for( int j = 0 ; j <= ligne ; j++) {
+            printf(" %c", Tableau[j][i]) ;
+            printf("\n");
+        }
+    }
+}
+int generation_map_test(int nbr_map)
+{
+    //selectionneur de niveau
+    switch (nbr_map)
+    {
+        case 1 :
+        {
+            //génération bordure
+            affichage_bordure();
+            break;
+        }
+        case 2 :
+        {
+            //génération bordure
+            affichage_bordure();
+            //génération des blocs
+            Tableau[5][5] = bloc_amovible;
+            Tableau[6][6] = bloc_movible;
+            Tableau[7][7] = trd;
+            break;
+        }
+        case 3 :
+        {
+            //génération bordure
+            affichage_bordure();
+            //génération des blocs
+            break;
+        }
+    }
+    Tableau[Xi][Yi] = S;
+    //fonction d'affichage
+    for(int l = 0 ; l <= colonne ;l++){
+        for(int c = 0 ; c <= ligne ;c++){
+            printf("%c ", Tableau[c][l]) ;
+            if (c==colonne)
+                printf("\n");
+
+        }
+        printf("\n\n");
+    }
+}
