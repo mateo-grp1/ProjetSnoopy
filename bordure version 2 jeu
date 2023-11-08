@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include "biblio_fonction.h"
+//VARIABLES
+char Tableau[ligne][colonne];
+extern char codeballe;
+extern char vide;
+extern int XI,YI;
+//initialisation des différrents blocs
+char bordure = 'X';
+
+
+void affichage_bordure()
+{
+    //Initialisation Tableau Colonne et ligne
+    for(int l = 0 ; l <= colonne ;l++){
+        for(int c = 0 ; c <= ligne ;c++){
+            if (l==0 || l==ligne || c==0 || c==colonne)
+                Tableau[c][l] = bordure;
+            else if(c==XI && l==YI)
+                Tableau[c][l] = codeballe;
+            else
+                Tableau[c][l] = vide;
+        }
+    }
+}
