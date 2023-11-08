@@ -1,0 +1,19 @@
+#include <windows.h>
+  
+void gotoligcol( int lig, int col ) // a copier avant le main pour utiliser le curseur
+{
+    // ressources
+    COORD mycoord;
+    mycoord.X = col;
+    mycoord.Y = lig;
+    SetConsoleCursorPosition( GetStdHandle( STD_OUTPUT_HANDLE ), mycoord );
+}
+
+int main ()
+{
+    // exemple d'appel au niveau du main
+    // ....
+    gotoligcol(5,15); // place le curseur ligne 5 colonne 15 de l'écran
+    printf("bonjour"); // et écrit bonjour à cet endroit du curseur
+    return 0;
+}
