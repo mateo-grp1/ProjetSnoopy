@@ -1,0 +1,61 @@
+#include <stdio.h>
+#define ligne 10
+#define colonne 10
+#include "biblio_fonction.h"
+#include <conio.h>
+
+/* Pour corriger le bound 10 :
+ * enlever les <= ligne/colonne
+ * mettre ligne et colonne à nombre demandé
+ */
+
+//VARIABLES
+extern char Tableau[ligne][colonne];
+//valeur de snoopy
+extern char S;
+//coordonnées initiales
+extern int Xi,Yi;
+char touche;
+//initialisation des différrents blocs
+extern char bordure,bloc_amovible,bloc_movible;
+extern char trz,trq,trs,trd;
+
+int main()
+{
+    //intialisation map
+    int nbr_map ;
+    printf("Quel niveau voulez vous choisir ?\n1/2/3\n");
+    scanf("%d",&nbr_map);
+    printf("%d", generation_map_test(nbr_map));
+    //boucle d'édition des changements + appele de la fonct afficaheg pour les illustrer
+    do {
+        deplacement_balle();
+        //boucle d'acquisition
+        do {
+            touche = _getch();
+        }while(!(touche == 'z'||touche == 'q'||touche == 's'||touche == 'd'|| touche =='e'));
+        //reponse à la touche
+        switch (touche) {
+            case 'z' :
+            {
+                printf("%d",mouvement(Xi,Yi-1,Xi,Yi-2));
+                break;
+            }
+            case 'q' :
+            {
+                printf("%d",mouvement(Xi-1,Yi,Xi-2,Yi));
+                break;
+            }
+            case 's' :
+            {
+                printf("%d",mouvement(Xi,Yi+1,Xi,Yi+2));
+                break;
+            }
+            case 'd' :
+            {
+                printf("%d",mouvement(Xi+1,Yi,Xi+2,Yi));
+                break;
+            }
+        }
+    }while(touche != 'e');
+}
