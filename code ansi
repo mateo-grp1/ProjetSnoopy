@@ -1,0 +1,8 @@
+#include <stdio.h>
+
+int main () {
+    printf("%c %c %c %c\n", 0x6, 0x5, 0xB, 0xE);
+    printf("%c %c %c %c\n", 0x1, 0x16, 0x1A, 0xF);
+    printf("%c",0xA);
+    return 0;
+}
