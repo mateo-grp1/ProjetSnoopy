@@ -71,7 +71,7 @@ int main()
 {
     // intialisation snoopy
     generation_i();
-    //boucle d'édition des changements + appele de la fonct afficaheg pour les illustrer
+    //boucle d'édition des changements + appel de la fonction affichage pour les illustrer
     //boucle d'acquisition
     do
     {
