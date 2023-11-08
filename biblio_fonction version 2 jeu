@@ -1,0 +1,11 @@
+#define ligne 10
+#define colonne 10
+
+#ifndef CODE_SNOOPY_COMPLEXE_BIBLIO_FONCTION_H
+#define CODE_SNOOPY_COMPLEXE_BIBLIO_FONCTION_H
+int mouvement(int Xm, int Ym, int Xr, int Yr);
+int generation_map_test(int nbr_map);
+void affichage_bordure();
+void deplacement_balle();
+void affichage_tableau();
+#endif //CODE_SNOOPY_COMPLEXE_BIBLIO_FONCTION_H
