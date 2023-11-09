@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <windows.h>
+#include<stdlib.h>
+
+#define ligne 10
+#define colonne 20
+char Tableau[ligne][colonne];
+char bordureHorizontal = 0xCD,bordureVertical = 0xBA;
+char bordureHautGauche = 0xC9,bordureHautDroit = 0xBB,bordureBasGauche = 0xC8 ,bordureBasDroit = 0xBC;
+char Snoppy = 0x0B ;
+char vide = ' ' ;
+char codeballe = 2;
+float sec=1000;
+
+struct Balle {
+    int X,Y,vecX,vecY,xS,yS;
+};
+
+//fonction d'affichage
+void affichage_tableau()
+{
+    for(int l = 0 ; l <= ligne ;l++){
+        for(int c = 0 ; c <= colonne ;c++){
+            printf("%c ", Tableau[c][l]) ;
+            if (c==colonne)
+                printf("\n");
+        }
+    }
+}
+void main()
+{
+    struct Balle B;
+    B.vecX=1; B.vecY=1;
+    B.X=4; B.Y=1;
+    B.xS=5; B.yS=5;
+    //Initialisation Tableau Colonne et ligne
+    for(int l = 0 ; l <= ligne ;l++){
+        for(int c = 0 ; c <= colonne ;c++){
+            if (c==0 && l==0)
+                    Tableau[c][l] = bordureHautGauche;
+            else if (c==0 && l==10)
+                    Tableau[c][l] = bordureBasGauche;
+            else if (c==colonne && l==0)
+                    Tableau[c][l] = bordureHautDroit;
+            else if (c==colonne && l==ligne)
+                    Tableau[c][l] = bordureBasDroit;
+            else if ((c==0 || c==colonne) && l!=0 && l!=ligne)
+                Tableau[c][l] = bordureVertical;
+            else if ((l==0 || l==ligne) && c!=0 && c!=colonne)
+                Tableau[c][l] = bordureHorizontal;
+            else if(c==B.X && l==B.Y)
+                Tableau[c][l] = codeballe;
+            else if(c==B.xS && l==B.yS)
+                Tableau[c][l] = Snoppy;
+            else
+                Tableau[c][l] = vide;
+        }
+    }
+    // Mouvement de la Balle
+
+    while (1)
+    {
+        system("cls");
+        affichage_tableau();
+        if (B.X==colonne-1)
+            B.vecX=-1;
+        else if (B.Y==ligne-1)
+            B.vecY=-1;
+        else if (B.X==1)
+            B.vecX=1;
+        else if (B.Y==1)
+            B.vecY=1;
+
+        B.X += B.vecX;
+        B.Y += B.vecY;
+        Tableau[B.X][B.Y] = codeballe;
+        Tableau[B.X-B.vecX][B.Y-B.vecY] = vide;
+        Sleep(sec);
+
+    }
+}
