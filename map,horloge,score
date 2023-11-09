@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <conio.h>
+
 int tempsrestant,Cvictoire=0,Oramasse=0;
 int horloge(){
     tempsrestant = 120;
@@ -27,11 +29,22 @@ void victoire(){
     if(Oramasse == 4)
         Cvictoire += 1;
 }
+void pause(){
+    if (_kbhit())
+        if (_getch() =='p') {
+            while(1) {
+                if (getch()=='p') {
+                    break;
+                }
+            }
+        }
+}
 
 int main() {
     horloge();
     score();
     vies();
+    pause();
     //après dowhile remettre Cvictoire à 0
     return 0;
 }
