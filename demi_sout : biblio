@@ -1,0 +1,18 @@
+#ifndef VERSION_FONCTIONNEL_BIBLIO_FONCTION_H
+#define VERSION_FONCTIONNEL_BIBLIO_FONCTION_H
+#define ligne 10
+#define colonne 20
+//menu et actions
+void menu();
+void jeu(int niv);
+//condition victoire
+int condition_victoire();
+//deplacement
+int mouvement(int Xm, int Ym, int Xr, int Yr);
+//map
+int generation_map_test(int niv);
+void generator_bordure();
+void generator_niv(int niv);
+//afficheur
+void affichage_tableau();
+#endif //VERSION_FONCTIONNEL_BIBLIO_FONCTION_H
