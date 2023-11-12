@@ -20,6 +20,7 @@ int compteur_vie = 4;
 int compteur_oiseau = 4;
 //initialisation des différrents blocs
 extern int bordureHorizontal,bordureVertical;
+extern char bordure;
 extern char bloc_amovible,bloc_movible,bloc_cassable,piege;
 extern char trz,trq,trs,trd;
 
@@ -60,6 +61,7 @@ int deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
         if (stockeur == oiseau)
         {
             compteur_oiseau--;
+            stockeur = ' ';
         }
         if (stockeur == piege)
         {
@@ -78,7 +80,7 @@ int deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
 int mouvement(int Xm, int Ym, int Xr, int Yr)
 {
 //vérifiaction de la possibilité d'execution du mouvement en cas de bordure ou de bloc fixe
-    if(Tableau[Xm][Ym] == bloc_amovible||Tableau[Xm][Ym] == bordureHorizontal||Tableau[Xm][Ym] == bordureVertical||Tableau[Xm][Ym] == bloc_cassable)
+    if(Tableau[Xm][Ym] == bloc_amovible||Tableau[Xm][Ym] == bordure||Tableau[Xm][Ym] == bloc_cassable)
     {
         printf("Le mouvement n'est pas possible\n");
         affichage_tableau();
@@ -86,7 +88,7 @@ int mouvement(int Xm, int Ym, int Xr, int Yr)
     //vérification en cas de bloc movible
     else if (Tableau[Xm][Ym] == bloc_movible)
     {
-        if(Tableau[Xr][Yr] == bloc_amovible||Tableau[Xr][Yr] == bordureHorizontal|Tableau[Xr][Yr] == bordureVertical||Tableau[Xr][Yr] == bloc_cassable||Tableau[Xr][Yr] == bloc_movible)
+        if(Tableau[Xr][Yr] == bloc_amovible||Tableau[Xr][Yr] == bordure||Tableau[Xr][Yr] == bloc_cassable||Tableau[Xr][Yr] == bloc_movible)
         {
             printf("Le mouvement n'est pas possible\n");
             affichage_tableau();
