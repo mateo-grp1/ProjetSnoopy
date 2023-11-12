@@ -1,0 +1,109 @@
+#include <stdio.h>
+#include "biblio_fonction.h"
+#include <conio.h>
+#include <unistd.h>
+
+/* Pour corriger le bound 10 :
+ * enlever les <= ligne/colonne
+ * mettre ligne et colonne à nombre demandé
+ */
+
+//VARIABLES
+extern char Tableau[ligne][colonne];
+//valeur de snoopy
+extern char S;
+//coordonnées initiales
+extern int Xi,Yi;
+char touche;
+//compteur
+extern int compteur_vie;
+extern int compteur_oiseau;
+//initialisation des différrents blocs
+extern char bloc_amovible,bloc_movible,bloc_cassable;
+extern char trz,trq,trs,trd;
+
+/*int horloge(){
+    int tempsrestant;
+    for (tempsrestant = 120;tempsrestant >= 0 || condition_victoire() != 0; tempsrestant--)
+    {
+        printf("\r%d",tempsrestant);
+        sleep(1);
+    }
+    return tempsrestant;
+}
+
+void score(){
+    int scoreduniveau = 0,scoreprecedent,tempsrestant;
+    tempsrestant = horloge();
+    if (condition_victoire() == 1)
+    {
+        scoreduniveau = 100* tempsrestant;
+        printf("Le score de ce niveau est %d",scoreduniveau);
+    }
+}*/
+
+int condition_victoire()
+{
+    /*int victoire = 0;
+    if (compteur_vie == 0||horloge() == 0)
+        victoire = -1;
+    if (compteur_oiseau == 0)
+        victoire = 1;
+    return victoire;*/
+}
+
+void jeu(int niv)
+{
+    //intialisation map
+    printf("%d", generation_map_test(niv));
+    //boucle d'édition des changements + appele de la fonct afficaheg pour les illustrer
+    do {
+        //boucle d'acquisition
+        do {
+            touche = _getch();
+        } while (!(touche == 'z' || touche == 'q' || touche == 's' || touche == 'd' || touche == 'c'||touche =='e'));
+        //reponse à la touche
+        switch (touche) {
+            case 'z' : {
+                printf("%d", mouvement(Xi - 1, Yi, Xi - 2, Yi));
+                break;
+            }
+            case 'q' : {
+                printf("%d", mouvement(Xi, Yi - 1, Xi, Yi - 2));
+                break;
+            }
+            case 's' : {
+                printf("%d",mouvement(Xi + 1, Yi, Xi + 2, Yi));
+                break;
+            }
+            case 'd' : {
+                printf("%d", mouvement(Xi, Yi + 1, Xi, Yi + 2));
+                break;
+            }
+            case 'c' :{
+
+                if (Tableau[Xi-1][Yi] == bloc_cassable)
+                    Tableau[Xi-1][Yi] = ' ';
+                if (Tableau[Xi+1][Yi] == bloc_cassable)
+                    Tableau[Xi+1][Yi] = ' ';
+                if (Tableau[Xi][Yi-1] == bloc_cassable)
+                    Tableau[Xi][Yi-1] = ' ';
+                if (Tableau[Xi][Yi+1] == bloc_cassable)
+                    Tableau[Xi][Yi+1] = ' ';
+                affichage_tableau();
+                break;
+            }
+        }
+    }while(!(touche == 'e'));
+    /*if (condition_victoire() == 1)
+    {
+        printf("You win !!!\n");
+        niv++;
+        jeu(niv);
+    }
+    else if (condition_victoire() == -1)
+    {
+        printf("You suck looser !!!\n");
+        menu();
+    }*/
+}
