@@ -9,23 +9,13 @@
 
 //VARIABLES
 extern char Tableau[ligne][colonne];
-//valeur de snoopy
-char S = 'S';
-char oiseau = 'V';
-//coordonnées initiales
-int Xi = 2,Yi = 2;
-//initialisation des différrents blocs
-char vide = ' ';
-extern int bordureHorizontal,bordureVertical;
-char bloc_amovible = 'A',bloc_movible = 'M',bloc_cassable = 'C',piege = 'P';
-char trz= 'Z',trq= 'Q',trs = 'S',trd = 'D';
 
 // affichage du tableau
 void affichage_tableau()
 {
     system("cls");
-    for(int l = 0 ; l <= ligne-1 ;l++) {
-        for( int c = 0 ; c <= colonne-1 ; c++) {
+    for(int l = 0 ; l <= ligne ;l++) {
+        for( int c = 0 ; c <= colonne ; c++) {
             printf(" %c", Tableau[l][c]) ;
         }
         printf("\n");
@@ -40,6 +30,8 @@ int generation_map_test(int niv)
         {
             //génération bordure
             generator_bordure();
+            //generation blocs
+            generator_niv(1);
             break;
         }
         case 2 :
@@ -47,9 +39,6 @@ int generation_map_test(int niv)
             //génération bordure
             generator_bordure();
             //génération des blocs
-            Tableau[5][5] = piege;
-            Tableau[6][6] = bloc_movible;
-            Tableau[7][7] = bloc_cassable;
             break;
         }
         case 3 :
@@ -59,6 +48,10 @@ int generation_map_test(int niv)
             //génération des blocs
             break;
         }
+    }
+    //affichage
+    affichage_tableau();
+}
     }
     Tableau[Xi][Yi] = S;
     //affichage
