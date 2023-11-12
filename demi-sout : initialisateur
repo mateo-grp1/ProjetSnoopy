@@ -2,25 +2,97 @@
 //VARIABLES
 char Tableau[ligne][colonne];
 extern char vide;
+//valeur de snoopy
+char S = 'S';
+char oiseau = 'V';
+//coordonnées initiales
+int Xi = 4,Yi = 8;
 //initialisation des différrents blocs
-char bordureHorizontal = 0xCD,bordureVertical = 0xBA;
+int bordureHorizontal = 0xCD,bordureVertical = 0xBA;
+char bordure = 'X';
+char vide = ' ';
+char bloc_amovible = 'A',bloc_movible = 'M',bloc_cassable = 'C',piege = 'P';
+char trz= 'Z',trq= 'Q',trs = 'S',trd = 'D';
 
 
 void generator_bordure()
 {
     //Initialisation Tableau Colonne et ligne
-    for(int l = 0 ; l <= ligne-1 ;l++){
-        for(int c = 0 ; c <= colonne-1 ;c++){
-            if (l==0 || l==ligne-1)
-                Tableau[l][c] = bordureHorizontal;
-            else if (c==0 || c==colonne-1)
-                Tableau[l][c] = bordureVertical;
+    for(int l = 0 ; l <= ligne ;l++){
+        for(int c = 0 ; c <= colonne ;c++){
+            if (l==0 || l==ligne)
+                Tableau[l][c] = bordure;
+            else if (c==0 || c==colonne)
+                Tableau[l][c] = bordure;
+            else if (c==1 && l == 1)
+                Tableau[l][c] = oiseau;
+            else if (c==1 && l == ligne - 1)
+                Tableau[l][c] = oiseau;
+            else if (c==colonne - 1 && l == 1)
+                Tableau[l][c] = oiseau;
+            else if (c== colonne - 1 && l == ligne - 1)
+                Tableau[l][c] = oiseau;
             else
                 Tableau[l][c] = vide;
         }
     }
+    Tableau[Xi][Yi] = S;
 }
 void generator_niv(int niv)
 {
-
+    switch (niv) {
+        case 1 :
+        {
+            //blocs cassables
+            Tableau[9][2] = bloc_cassable;
+            Tableau[6][5] = bloc_cassable;
+            Tableau[4][9] = bloc_cassable;
+            Tableau[8][12] = bloc_cassable;
+            Tableau[2][15] = bloc_cassable;
+            //blocs movibles
+            Tableau[4][3] = bloc_movible;
+            Tableau[4][12] = bloc_movible;
+            Tableau[4][19] = bloc_movible;
+            //blocs fixes par lignes
+            Tableau[0][3] = bloc_amovible;Tableau[0][8] = bloc_amovible;
+            for (int i = 13;i<15;i++){Tableau[0][i] = bloc_amovible;}
+            Tableau[0][18] = bloc_amovible;
+            for (int i = 0;i<2;i++){Tableau[1][i] = bloc_amovible;}
+            Tableau[1][3] = bloc_amovible;
+            for (int i = 5;i<9;i++){Tableau[1][i] = bloc_amovible;}
+            for (int i = 10;i<12;i++){Tableau[1][i] = bloc_amovible;}
+            for (int i = 13;i<15;i++){Tableau[1][i] = bloc_amovible;}
+            Tableau[1][16] = bloc_amovible;
+            Tableau[2][3] = bloc_amovible;Tableau[2][5] = bloc_amovible;
+            for (int i = 11;i<13;i++){Tableau[2][i] = bloc_amovible;}
+            Tableau[2][13] = bloc_amovible;
+            for (int i = 16;i<19;i++){Tableau[2][i] = bloc_amovible;}
+            for (int i = 1;i<4;i++){Tableau[3][i] = bloc_amovible;}
+            Tableau[3][5] = bloc_amovible;
+            for (int i = 7;i<9;i++){Tableau[3][i] = bloc_amovible;}
+            for (int i = 11;i<16;i++){Tableau[3][i] = bloc_amovible;}
+            Tableau[4][7] = bloc_amovible;
+            for (int i = 14;i<16;i++){Tableau[4][i] = bloc_amovible;}
+            for (int i = 1;i<3;i++){Tableau[5][i] = bloc_amovible;}
+            Tableau[5][4] = bloc_amovible;
+            for (int i = 6;i<8;i++){Tableau[5][i] = bloc_amovible;}
+            for (int i = 9;i<13;i++){Tableau[5][i] = bloc_amovible;}
+            for (int i = 15;i<19;i++){Tableau[5][i] = bloc_amovible;}
+            Tableau[6][1] = bloc_amovible;Tableau[6][4] = bloc_amovible;Tableau[6][11] = bloc_amovible;Tableau[6][13] = bloc_amovible;Tableau[6][16] = bloc_amovible;
+            Tableau[7][4] = bloc_amovible;Tableau[7][6] = bloc_amovible;
+            for (int i = 8;i<10;i++){Tableau[7][i] = bloc_amovible;}
+            Tableau[7][11] = bloc_amovible;
+            for (int i = 13;i<15;i++){Tableau[7][i] = bloc_amovible;}
+            Tableau[7][16] = bloc_amovible;
+            for (int i = 17;i<20;i++){Tableau[7][i] = bloc_amovible;}
+            for (int i = 0;i<3;i++){Tableau[8][i] = bloc_amovible;}
+            Tableau[8][6] = bloc_amovible;
+            for (int i = 8;i<10;i++){Tableau[8][i] = bloc_amovible;}
+            Tableau[8][16] = bloc_amovible;
+            for (int i = 17;i<20;i++){Tableau[8][i] = bloc_amovible;}
+            Tableau[9][6] = bloc_amovible;
+            for (int i = 11;i<15;i++){Tableau[9][i] = bloc_amovible;}
+            break;
+        }
+    }
 }
