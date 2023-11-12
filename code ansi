@@ -8,5 +8,6 @@ int main () {
     printf("Snoopy = %c\n",0xB);
     printf("Bloc fixe = %c\n",0xF);
     printf("Bloc poussable = %c\n",0x1A);
+    printf("Bloc cassable = %c\n",0x6);
     return 0;
 }
