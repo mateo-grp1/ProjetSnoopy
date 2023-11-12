@@ -6,10 +6,9 @@ int tempsrestant,Cvictoire=0,Oramasse=0;
 int horloge(){
     tempsrestant = 120;
     while (tempsrestant != 0 || Cvictoire == 1){
-        printf("Temps : %d",tempsrestant);
+        printf("Temps : \r%d",tempsrestant);
         tempsrestant-=1;
         sleep(1);
-        system("cls");
     }
 }
 void vies(){
