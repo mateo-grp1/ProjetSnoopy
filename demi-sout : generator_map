@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <windows.h>
+#include "biblio_fonction.h"
+
+/* Pour corriger le bound 10 :
+ * enlever les <= ligne/colonne
+ * mettre ligne et colonne à nombre demandé
+ */
+
+//VARIABLES
+extern char Tableau[ligne][colonne];
+//valeur de snoopy
+char S = 'S';
+char oiseau = 'V';
+//coordonnées initiales
+int Xi = 2,Yi = 2;
+//initialisation des différrents blocs
+char vide = ' ';
+extern int bordureHorizontal,bordureVertical;
+char bloc_amovible = 'A',bloc_movible = 'M',bloc_cassable = 'C',piege = 'P';
+char trz= 'Z',trq= 'Q',trs = 'S',trd = 'D';
+
+// affichage du tableau
+void affichage_tableau()
+{
+    system("cls");
+    for(int l = 0 ; l <= ligne-1 ;l++) {
+        for( int c = 0 ; c <= colonne-1 ; c++) {
+            printf(" %c", Tableau[l][c]) ;
+        }
+        printf("\n");
+    }
+}
+int generation_map_test(int niv)
+{
+    //selectionneur de niveau
+    switch (niv)
+    {
+        case 1 :
+        {
+            //génération bordure
+            generator_bordure();
+            break;
+        }
+        case 2 :
+        {
+            //génération bordure
+            generator_bordure();
+            //génération des blocs
+            Tableau[5][5] = piege;
+            Tableau[6][6] = bloc_movible;
+            Tableau[7][7] = bloc_cassable;
+            break;
+        }
+        case 3 :
+        {
+            //génération bordure
+            generator_bordure();
+            //génération des blocs
+            break;
+        }
+    }
+    Tableau[Xi][Yi] = S;
+    //affichage
+    affichage_tableau();
+}
