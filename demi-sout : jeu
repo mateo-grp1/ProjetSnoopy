@@ -12,12 +12,14 @@
 extern char Tableau[ligne][colonne];
 //valeur de snoopy
 extern char S;
+extern char oiseau;
 //coordonnées initiales
 extern int Xi,Yi;
 char touche;
+int compteur_oiseau = 4;
 //compteur
 extern int compteur_vie;
-extern int compteur_oiseau;
+int NIV = 1;
 //initialisation des différrents blocs
 extern char bloc_amovible,bloc_movible,bloc_cassable;
 extern char trz,trq,trs,trd;
@@ -42,18 +44,27 @@ void score(){
     }
 }*/
 
-int condition_victoire()
-{
-    /*int victoire = 0;
-    if (compteur_vie == 0||horloge() == 0)
-        victoire = -1;
-    if (compteur_oiseau == 0)
-        victoire = 1;
-    return victoire;*/
-}
 
-void jeu(int niv)
+void jeu(int niv,int victoire)
 {
+    if (victoire != 0)
+    {
+        system("cls");
+        if (victoire == 1)
+        {
+            printf("You win !!!\n");
+            sleep(5);
+            victoire = 0;
+            jeu(niv,victoire);
+        }
+        else if (victoire == -1)
+        {
+            printf("You lose !!!\n");
+            sleep(5);
+            victoire = 0 ;
+            menu();
+        }
+    }
     //intialisation map
     printf("%d", generation_map_test(niv));
     //boucle d'édition des changements + appele de la fonct afficaheg pour les illustrer
@@ -94,16 +105,5 @@ void jeu(int niv)
                 break;
             }
         }
-    }while(!(touche == 'e'));
-    /*if (condition_victoire() == 1)
-    {
-        printf("You win !!!\n");
-        niv++;
-        jeu(niv);
-    }
-    else if (condition_victoire() == -1)
-    {
-        printf("You suck looser !!!\n");
-        menu();
-    }*/
+    }while(victoire == 0);
 }
