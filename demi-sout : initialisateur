@@ -8,8 +8,8 @@ char oiseau = 'V';
 //coordonnées initiales
 int Xi = 4,Yi = 8;
 //initialisation des différrents blocs
-int bordureHorizontal = 0xCD,bordureVertical = 0xBA;
-char bordure = 0xCD;
+char bordureHorizontal = 0xCD,bordureVertical = 0xBA;
+char bordure = 'X';
 char vide = ' ';
 char bloc_amovible = 0xA4,bloc_movible = 'M',bloc_cassable = 'C',piege = 'P';
 char trz= 'Z',trq= 'Q',trs = 'S',trd = 'D';
@@ -21,9 +21,9 @@ void generator_bordure()
     for(int l = 0 ; l <= ligne-1 ;l++){
         for(int c = 0 ; c <= colonne-1 ;c++){
             if (l==0 || l==ligne-1)
-                Tableau[l][c] = bordure;
+                Tableau[l][c] = bordureHorizontal;
             else if (c==0 || c==colonne-1)
-                Tableau[l][c] = bordure;
+                Tableau[l][c] = bordureVertical;
             else if (c==1 && l == 1)
                 Tableau[l][c] = oiseau;
             else if (c==1 && l == ligne - 2)
