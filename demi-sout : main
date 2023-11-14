@@ -11,7 +11,7 @@ void regles_du_jeu()
 {
     int choix_regles;
     printf("REGLES DU JEU\n"
-           "Le but de Snoopy est de recuperer 4 oiseaux aux 4 coins du niveau en un temps imparti.\n Le probleme est que ces 4 oiseaux ne sont pas si faciles a recuperer.\n Une balle rebondit constamment dans le niveau afin de freiner Snoopy dans sa quete.\n Mais ce n'est pas tout, d'autres pieges sont presents…\n A vous de jouer !\n"
+           " Le but de Snoopy est de recuperer 4 oiseaux aux 4 coins du niveau en un temps imparti.\n Le probleme est que ces 4 oiseaux ne sont pas si faciles a recuperer.\n Une balle rebondit constamment dans le niveau afin de freiner Snoopy dans sa quete.\n Mais ce n'est pas tout, d'autres pieges sont presents!!\n A vous de jouer !\n"
            "1 : Wiki Touches\n"
            "2 : Wiki Blocs\n"
            "3 : Revenir au menu\n"
@@ -23,11 +23,11 @@ void regles_du_jeu()
             system("cls");
             printf("Les differentes touches sont : \n"
                    "z : monter\n"
-                   "q : aller à gauche\n"
+                   "q : aller a gauche\n"
                    "s : descendre\n"
-                   "d : aller à droite\n"
+                   "d : aller a droite\n"
                    "c : casser un bloc cassable\n\n"
-                   "\n\nVoulez vous retourner au menu ? ( 1 = oui, 0 = non)\n");
+                   "\n\nVoulez vous retourner au menu ? ( 1 = oui)\n");
             scanf("%d", &rep);
 
             if ( rep == 1 ) {
@@ -40,13 +40,12 @@ void regles_du_jeu()
             system("cls");
             printf("les differents blocs sont :\n"
                    "bordure (=): limite du terrain\n"
-                   "bloc movible (M): bloc déplasable une fois\n"
-                   "bloc amovible (A): bloc ayant été deplacé\n"
+                   "bloc movible (M): bloc deplasable une fois\n"
+                   "bloc amovible (A): bloc ayant ete deplace\n"
                    "bloc cassable (C) : bloc destructible\n"
                    "bloc piege (P) : bloc tuant instantannement\n\n"
-                   "\n\nVoulez vous retourner au menu ? ( 1 = oui, 0 = non)\n");
+                   "\n\nVoulez vous retourner au menu ? ( 1 = oui)\n");
             scanf("%d", &rep);
-
             if ( rep == 1 ) {
                 menu();
             }
@@ -70,38 +69,35 @@ void charger_une_partie()
 }
 void mot_de_passe()
 {
+    printf("Rentrez un mot de passe \n"
+           "Pour revenir au menu taper 1\n");
     char mot_de_passe[8];
     char code1[8] = "niv1eau";
     char code2[8] = "niv2eau";
     char code3[8] = "niv3eau";
     char code4[8] = "niv4eau";
-    printf("Rentrez un mot de passe \n");
     scanf("%c",&mot_de_passe[8]);
     if (mot_de_passe[8] == code1[8])
     {
-        jeu(1);
+        jeu(1,0);
     }
     else if (mot_de_passe[8] == code2[8])
     {
-        jeu(2);
+        jeu(2,0);
     }
     else if (mot_de_passe[8] == code3[8])
     {
-        jeu(3);
+        jeu(3,0);
     }
     else if (mot_de_passe[8] == code4[8])
     {
-        jeu(4);
+        jeu(4,0);
     }
-    else
-    {
-        menu();
-    }
+    else {menu();}
 }
 void scores()
 {
     int score = 0;
-    system("cls");
     printf("Score actuel : %d", score);
 
     printf("\n\nVoulez vous retourner au menu ? ( 1 = oui, 0 = non)\n");
@@ -132,40 +128,38 @@ void menu()
                "6 : QUITTER\n"
                "Selectionner un menu : ");
         scanf("%d",&choix_menu);
+        system("cls");
         switch (choix_menu) {
             case 1:
             {
-                system("cls");
                 regles_du_jeu();
                 break;
             }
             case 2:
             {
-                system("cls");
-                jeu(1);
+                jeu(1,0);
                 break;
             }
             case 3:
             {
-                system("cls");
                 charger_une_partie();
                 break;
             }
             case 4:
             {
-                system("cls");
                 mot_de_passe();
                 break;
             }
             case 5:
             {
-                system("cls");
                 scores();
                 break;
             }
-            default :
-                printf("Erreur,veuillez recommencer");
+            case 6 :
+                system("cls");
+                break;
         }
+
     } while (choix_menu < 1 || choix_menu > 6);
 }
 void Color(int couleurTexte, int couleurFond);
@@ -174,9 +168,10 @@ void Color(int couleurTexte, int couleurFond){
     HANDLE H= GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(H,couleurFond*16+couleurTexte);
 }
+
 int main()
 {
-    Color(14,5); // texte jaune, fond violet
+    Color(16,9); // texte jaune, fond violet
     menu();
     return 0;
 }
