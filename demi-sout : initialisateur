@@ -36,7 +36,6 @@ void generator_bordure()
                 Tableau[l][c] = vide;
         }
     }
-    Tableau[Xi][Yi] = S;
 }
 void generator_niv(int niv)
 {
@@ -46,8 +45,9 @@ void generator_niv(int niv)
             //blocs cassables
             Tableau[8][2] = bloc_cassable;
             Tableau[6][5] = bloc_cassable;
-            Tableau[7][12] = bloc_cassable;
             Tableau[3][14] = bloc_cassable;
+            //piege
+            Tableau[7][12] = piege;
             //blocs movibles
             Tableau[5][2] = bloc_movible;
             Tableau[4][10] = bloc_movible;
