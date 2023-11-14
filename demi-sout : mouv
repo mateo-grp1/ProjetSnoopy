@@ -20,7 +20,7 @@ int compteur_vie = 4;
 extern int compteur_oiseau;
 extern int NIV;
 //initialisation des différrents blocs
-extern int bordureHorizontal,bordureVertical;
+extern char bordureHorizontal,bordureVertical;
 extern char bordure;
 extern char bloc_amovible,bloc_movible,bloc_cassable,piege;
 extern char trz,trq,trs,trd;
