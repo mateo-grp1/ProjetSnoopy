@@ -171,7 +171,7 @@ void Color(int couleurTexte, int couleurFond){
 
 int main()
 {
-    Color(16,9); // texte jaune, fond violet
+    Color(16,6); // texte jaune, fond violet
     menu();
     return 0;
 }
