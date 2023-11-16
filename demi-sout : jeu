@@ -72,7 +72,7 @@ void jeu(int niv,int victoire)
         //boucle d'acquisition
         do {
             touche = _getch();
-        } while (!(touche == 'z' || touche == 'q' || touche == 's' || touche == 'd' || touche == 'c'||touche =='e'));
+        } while (!(touche == 'z' || touche == 'q' || touche == 's' || touche == 'd' || touche == 'c'));
         //reponse à la touche
         switch (touche) {
             case 'z' : {
