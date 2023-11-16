@@ -87,14 +87,14 @@ int deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
 int mouvement(int Xm, int Ym, int Xr, int Yr)
 {
 //vérifiaction de la possibilité d'execution du mouvement en cas de bordure ou de bloc fixe
-    if(Tableau[Xm][Ym] == bloc_amovible||Tableau[Xm][Ym] == bordureVerticale||Tableau[Xm][Ym] == bordureHorizontale||Tableau[Xm][Ym] == bloc_cassable)
+    if(Tableau[Xm][Ym] == bloc_amovible||Tableau[Xm][Ym] == bordureVertical||Tableau[Xm][Ym] == bordureHorizontal||Tableau[Xm][Ym] == bloc_cassable)
     {
         affichage_tableau();
     }
     //vérification en cas de bloc movible
     else if (Tableau[Xm][Ym] == bloc_movible)
     {
-        if(Tableau[Xr][Yr] == bloc_amovible||Tableau[Xr][Yr] == bordureVerticale||Tableau[Xr][Yr] == bordureHorizontale||Tableau[Xr][Yr] == bloc_cassable||Tableau[Xr][Yr] == bloc_movible)
+        if(Tableau[Xr][Yr] == bloc_amovible||Tableau[Xr][Yr] == bordureVertical||Tableau[Xr][Yr] == bordureHorizontal||Tableau[Xr][Yr] == bloc_cassable||Tableau[Xr][Yr] == bloc_movible)
         {
             affichage_tableau();
         }
