@@ -56,6 +56,8 @@ int deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
         {
             //déplacement du bloc
             Tableau[*pXr][*pYr] = bloc_amovible;
+            //modification du stockeur
+            stockeur = ' ';
         }
         if (stockeur == oiseau)
         {
@@ -64,16 +66,18 @@ int deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
             if (compteur_oiseau == 0)
             {
                 NIV++;
+                //modification du stockeur
+                stockeur = ' ';
                 jeu(NIV,1);
             }
         }
         if (stockeur == piege)
         {
             compteur_vie = 0;
-            jeu(0,-1);
-        }
         //modification du stockeur
         stockeur = ' ';
+            jeu(0,-1);
+        }
         //déplacement
         Tableau[*pXm][*pYm] = S;
         //incrémentation pour la valeur initale suivante
