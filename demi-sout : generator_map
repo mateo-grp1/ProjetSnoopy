@@ -52,8 +52,4 @@ int generation_map_test(int niv)
     //affichage
     affichage_tableau();
 }
-    }
-    Tableau[Xi][Yi] = S;
-    //affichage
-    affichage_tableau();
-}
+    
