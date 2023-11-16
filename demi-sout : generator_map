@@ -9,6 +9,10 @@
 
 //VARIABLES
 extern char Tableau[ligne][colonne];
+extern char S;
+extern char oiseau;
+//coordonnées initiales
+extern int Xi,Yi;
 
 // affichage du tableau
 void affichage_tableau()
@@ -32,6 +36,9 @@ int generation_map_test(int niv)
             generator_bordure();
             //generation blocs
             generator_niv(1);
+            //initialisation de snoopy
+            Xi = 4,Yi =8 ;
+            Tableau[Xi][Yi] = S;
             break;
         }
         case 2 :
@@ -39,6 +46,9 @@ int generation_map_test(int niv)
             //génération bordure
             generator_bordure();
             //génération des blocs
+            //initialisation de snoopy
+            Xi = 4,Yi =8 ;
+            Tableau[Xi][Yi] = S;
             break;
         }
         case 3 :
@@ -46,6 +56,9 @@ int generation_map_test(int niv)
             //génération bordure
             generator_bordure();
             //génération des blocs
+            //initialisation de snoopy
+            Xi = 4,Yi =8 ;
+            Tableau[Xi][Yi] = S;
             break;
         }
     }
