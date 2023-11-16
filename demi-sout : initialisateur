@@ -9,7 +9,6 @@ char oiseau = 'V';
 int Xi = 4,Yi = 8;
 //initialisation des différrents blocs
 char bordureHorizontal = 0xCD,bordureVertical = 0xBA;
-char bordure = 'X';
 char vide = ' ';
 char bloc_amovible = 0xA4,bloc_movible = 'M',bloc_cassable = 'C',piege = 'P';
 char trz= 'Z',trq= 'Q',trs = 'S',trd = 'D';
