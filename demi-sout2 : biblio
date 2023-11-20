@@ -1,0 +1,28 @@
+#ifndef VERSION_FONCTIONNEL_BIBLIO_FONCTION_H
+#define VERSION_FONCTIONNEL_BIBLIO_FONCTION_H
+#define ligne 10
+#define colonne 20
+//menu et actions
+void menu();
+void jeu(int niv,int victoire);
+//blocs
+#define bordureHorizontal '-' //0xCD
+#define bordureVertical  '|' //0xBA
+#define vide ' '
+#define bloc_amovible '#'
+#define bloc_movible 'M'
+#define bloc_cassable 'C'
+#define piege 'P'
+#define trz 'Z'
+#define trq 'Q'
+#define trs 'S'
+#define trd 'D'
+//deplacement
+int mouvement(int Xm, int Ym, int Xr, int Yr);
+//map
+int generation_map_test(int niv);
+void generator_bordure();
+void generator_niv(int niv);
+//afficheur
+void affichage_tableau();
+#endif //VERSION_FONCTIONNEL_BIBLIO_FONCTION_H
