@@ -5,8 +5,18 @@
 //menu et actions
 void menu();
 void jeu(int niv,int victoire);
-//condition victoire
-int condition_victoire();
+//blocs
+#define bordureHorizontal 'X' //0xCD
+#define bordureVertical  'X' //0xBA
+#define vide ' '
+#define bloc_amovible 'X'
+#define bloc_movible 'M'
+#define bloc_cassable 'C'
+#define piege 'P'
+#define trz 'Z'
+#define trq 'Q'
+#define trs 'S'
+#define trd 'D'
 //deplacement
 int mouvement(int Xm, int Ym, int Xr, int Yr);
 //map
