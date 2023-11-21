@@ -3,11 +3,6 @@
 #include <conio.h>
 #include <unistd.h>
 
-/* Pour corriger le bound 10 :
- * enlever les <= ligne/colonne
- * mettre ligne et colonne à nombre demandé
- */
-
 //VARIABLES
 extern char Tableau[ligne][colonne];
 //valeur de snoopy
@@ -21,6 +16,7 @@ int compteur_oiseau = 4;
 extern int compteur_vie;
 int NIV = 1;
 
+//horloge
 /*int horloge(){
     int tempsrestant;
     for (tempsrestant = 120;tempsrestant >= 0 || condition_victoire() != 0; tempsrestant--)
@@ -31,6 +27,7 @@ int NIV = 1;
     return tempsrestant;
 }
 
+//score
 void score(){
     int scoreduniveau = 0,scoreprecedent,tempsrestant;
     tempsrestant = horloge();
@@ -41,7 +38,7 @@ void score(){
     }
 }*/
 
-
+//jeu et appel des touches
 void jeu(int niv,int victoire)
 {
     if (victoire != 0)
