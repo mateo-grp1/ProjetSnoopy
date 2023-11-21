@@ -1,11 +1,6 @@
 #include <stdio.h>
 #include "biblio_fonction.h"
 
-/* Pour corriger le bound 10 :
- * enlever les <= ligne/colonne
- * mettre ligne et colonne à nombre demandé
- */
-
 //VARIABLES
 extern char Tableau[ligne][colonne];
 //valeur de snoopy
@@ -20,7 +15,7 @@ int compteur_vie = 4;
 extern int compteur_oiseau;
 extern int NIV;
 
-
+//deplacement de snoopy en fonction des blocs
 int deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
 {
     //effacement de la position antèrieur
@@ -83,7 +78,7 @@ int deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
     affichage_tableau();
     return compteur_vie;
 }
-//programme d'édition des changements
+//vérificateur de la possibilité des mouvements
 int mouvement(int Xm, int Ym, int Xr, int Yr)
 {
 //vérifiaction de la possibilité d'execution du mouvement en cas de bordure ou de bloc fixe
@@ -103,72 +98,6 @@ int mouvement(int Xm, int Ym, int Xr, int Yr)
             deplacement(&Xm,&Ym,&Xr,&Yr);
         }
     }
-        //vérification du bloc tapis roulant
-        /*else if (Tableau[Xm][Ym] == trz||Tableau[Xm][Ym] == trq||Tableau[Xm][Ym] == trs||Tableau[Xm][Ym] == trd)
-        {
-            do
-            {
-                switch(Tableau[Xm][Ym])
-                {
-                    //Mouv HAUT
-                    case 'Z' :
-                    {
-                        if(Tableau[Xr][Yr-1] == bloc_amovible||Tableau[Xr][Yr-1] == bordure)
-                        {
-                            printf("Le mouvement n'est pas possible\n");
-                            affichage_tableau();
-                        }
-                        else
-                        {
-                            deplacement(&Xr,&Yr,&Xr,&Yr-1);
-                        }
-                        break;
-                    }
-                        //Mouv GAUCHE
-                    case 'Q' :
-                    {
-                        if(Tableau[Xr-1][Yr] == bloc_amovible||Tableau[Xr-1][Yr] == bordure)
-                        {
-                            printf("Le mouvement n'est pas possible\n");
-                            affichage_tableau();
-                        }
-                        else
-                        {
-                            deplacement(&Xm,&Ym,&Xr-1,&Yr);
-                        }
-                        break;
-                    }
-                        //Mouv BAS
-                    case 'S' :
-                    {
-                        if(Tableau[Xr][Yr+1] == bloc_amovible||Tableau[Xr][Yr+1] == bordure)
-                        {
-                            printf("Le mouvement n'est pas possible\n");
-                            affichage_tableau();
-                        }
-                        else
-                        {
-                            deplacement(&Xm,&Ym,&Xr,&Yr+1);
-                        }
-                        break;
-                    }
-                        //Mouv DROITE
-                    case 'D' :
-                    {
-                        if(Tableau[Xr+1][Yr] == bloc_amovible||Tableau[Xr+1][Yr] == bordure)
-                        {
-                            printf("Le mouvement n'est pas possible\n");
-                            affichage_tableau();
-                        }
-                        else
-                        {
-                            deplacement(&Xm,&Ym,&Xr+1,&Yr);
-                        }
-                        break;
-                    }
-                }
-            }while (!(Tableau[Xr][Yr] == trz||Tableau[Xr][Yr] == trq||Tableau[Xr][Yr] == trs||Tableau[Xr][Yr] == trd));
-        }*/
         //déplacement permis si aucune autre condition n'est validé
     else
     {
