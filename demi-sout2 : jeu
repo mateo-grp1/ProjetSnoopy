@@ -41,6 +41,7 @@ void score(){
 //jeu et appel des touches
 void jeu(int niv,int victoire)
 {
+//détecteur de victoire ou defaite
     if (victoire != 0)
     {
         system("cls");
