@@ -109,7 +109,7 @@ void scores()
 }
 void menu()
 {
-    int choix_menu;
+    char choix_menu;
     do
     {
         system("cls");
@@ -127,40 +127,40 @@ void menu()
                "5 : SCORES\n"
                "6 : QUITTER\n"
                "Selectionner un menu : ");
-        scanf("%d",&choix_menu);
+        scanf("%c",&choix_menu);
         system("cls");
         switch (choix_menu) {
-            case 1:
+            case '1':
             {
                 regles_du_jeu();
                 break;
             }
-            case 2:
+            case '2':
             {
                 jeu(1,0);
                 break;
             }
-            case 3:
+            case '3':
             {
                 charger_une_partie();
                 break;
             }
-            case 4:
+            case '4':
             {
                 mot_de_passe();
                 break;
             }
-            case 5:
+            case '5':
             {
                 scores();
                 break;
             }
-            case 6 :
+            case '6' :
                 system("cls");
                 break;
         }
 
-    } while (!( choix_menu > 1 || choix_menu < 6));
+    } while (!( choix_menu == '1' || choix_menu == '2' ||choix_menu == '3' ||choix_menu == '4' ||choix_menu == '5' ||choix_menu == '6'));
 }
 void Color(int couleurTexte, int couleurFond);
 //Fonction pour changer la couleur
