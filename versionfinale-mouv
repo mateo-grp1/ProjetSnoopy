@@ -10,10 +10,8 @@ int compteur_oiseau = 4;
 void deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
 {
     char stockeur = VIDE;
-    //effacement de la position antèrieur
-    Tableau[Xi][Yi] = stockeur;
-    //stocke la valeur initiale de la case
-    stockeur = Tableau[*pXm][*pYm];
+    Tableau[Xi][Yi] = stockeur; //effacement de la position antèrieur
+    stockeur = Tableau[*pXm][*pYm]; //stocke la valeur initiale de la case
     //SI TERRE MODIF MOUV
     //si le bloc rencontré est un tapis roulant
     if(stockeur == TRZ||stockeur == TRQ||stockeur == TRS||stockeur == TRD)
