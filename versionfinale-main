@@ -257,7 +257,7 @@ void menu()
         }
     } while (!( choix_menu == '1' || choix_menu == '2' ||choix_menu == '3' ||choix_menu == '4' ||choix_menu == '5' ||choix_menu == '6'));
 }
-void Color(int couleurTexte, int couleurFond);
+
 //Fonction pour changer la couleur
 void Color(int couleurTexte, int couleurFond){
     HANDLE H= GetStdHandle(STD_OUTPUT_HANDLE);
