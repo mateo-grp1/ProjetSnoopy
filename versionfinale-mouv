@@ -1,0 +1,153 @@
+#include "biblio_fonction.h"
+
+extern char Tableau[LIGNE][COLONNE];
+//coordonnées initiales
+extern int Xi,Yi;
+//variables
+int NIV = 1;
+int compteur_oiseau = 4;
+
+void deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
+{
+    char stockeur = VIDE;
+    //effacement de la position antèrieur
+    Tableau[Xi][Yi] = stockeur;
+    //stocke la valeur initiale de la case
+    stockeur = Tableau[*pXm][*pYm];
+    //SI TERRE MODIF MOUV
+    //si le bloc rencontré est un tapis roulant
+    if(stockeur == TRZ||stockeur == TRQ||stockeur == TRS||stockeur == TRD)
+    {
+        //déplacement
+        Tableau[*pXm][*pYm] = S;
+        Xi = *pXm, Yi = *pYm;
+        affichage_tableau();
+        Tableau[Xi][Yi] = stockeur;
+        Tableau[*pXr][*pYr] = S;
+        Xi = *pXr, Yi = *pYr;
+    }
+        //SI MOUV MODIF TERRE
+    else
+    {
+        //si le bloc rencontré est movible
+        if (stockeur == BLOC_MOVIBLE)
+        {
+            //déplacement du bloc
+            Tableau[*pXr][*pYr] = BLOC_AMOVIBLE;
+        }
+        if (stockeur == OISEAU)
+        {
+            compteur_oiseau--;
+
+            if (compteur_oiseau == 0)
+            {
+                NIV++;
+                //modification du stockeur
+                stockeur = VIDE;
+                compteur_oiseau = 4;
+                jeu(NIV,1);
+            }
+        }
+        if (stockeur == PIEGE)
+        {
+            //modification du stockeur
+            stockeur = VIDE;
+            compteur_oiseau = 4;
+            jeu(0,-1);
+        }
+        //déplacement
+        Tableau[*pXm][*pYm] = S;
+        //incrémentation pour la valeur initale suivante
+        Xi = *pXm, Yi = *pYm;
+    }
+    //affichage de la modification
+    affichage_tableau();
+}
+//programme d'édition des changements
+int mouvement(int Xm, int Ym, int Xr, int Yr)
+{
+//vérifiaction de la possibilité d'execution du mouvement en cas de bordure ou de bloc fixe
+    if(Tableau[Xm][Ym] == BLOC_AMOVIBLE||Tableau[Xm][Ym] == BORDUREVERTICALE||Tableau[Xm][Ym] == BORDUREHORIZONTALE||Tableau[Xm][Ym] == BLOC_CASSABLE)
+    {
+        affichage_tableau();
+    }
+        //vérification en cas de bloc movible
+    else if (Tableau[Xm][Ym] == BLOC_MOVIBLE)
+    {
+        if(Tableau[Xr][Yr] == BLOC_AMOVIBLE||Tableau[Xm][Ym] == BORDUREVERTICALE||Tableau[Xm][Ym] == BORDUREHORIZONTALE||Tableau[Xr][Yr] == BLOC_CASSABLE||Tableau[Xr][Yr] == BLOC_MOVIBLE)
+        {
+            affichage_tableau();
+        }
+        else
+        {
+            deplacement(&Xm,&Ym,&Xr,&Yr);
+        }
+    }
+        //vérification du bloc tapis roulant
+    else if (Tableau[Xm][Ym] == TRZ||Tableau[Xm][Ym] == TRQ||Tableau[Xm][Ym] == TRS||Tableau[Xm][Ym] == TRD)
+    {
+        do
+        {
+            switch(Tableau[Xm][Ym])
+            {
+                //Mouv HAUT
+                case 'Z' :
+                {
+                    if(Tableau[Xm][Ym+1] == BLOC_AMOVIBLE||Tableau[Xm][Ym+1] == BORDUREHORIZONTALE||Tableau[Xm][Ym+1] == BORDUREVERTICALE)
+                    {
+                        affichage_tableau();
+                    }
+                    else
+                    {
+                        deplacement(&Xm,&Ym,&Xm-1,&Ym);
+                    }
+                    break;
+                }
+                    //Mouv GAUCHE
+                case 'Q' :
+                {
+                    if(Tableau[Xr-1][Yr] == BLOC_AMOVIBLE||Tableau[Xr-1][Yr] == BORDUREHORIZONTALE||Tableau[Xr-1][Yr] == BORDUREVERTICALE)
+                    {
+                        affichage_tableau();
+                    }
+                    else
+                    {
+                        deplacement(&Xm,&Ym,&Xr-1,&Yr);
+                    }
+                    break;
+                }
+                    //Mouv BAS
+                case 'S' :
+                {
+                    if(Tableau[Xr][Yr+1] == BLOC_AMOVIBLE||Tableau[Xr][Yr+1] == BORDUREHORIZONTALE||Tableau[Xr][Yr+1] == BORDUREVERTICALE)
+                    {
+                        affichage_tableau();
+                    }
+                    else
+                    {
+                        deplacement(&Xm,&Ym,&Xr,&Yr+1);
+                    }
+                    break;
+                }
+                    //Mouv DROITE
+                case 'D' :
+                {
+                    if(Tableau[Xr+1][Yr] == BLOC_AMOVIBLE||Tableau[Xr+1][Yr] == BORDUREHORIZONTALE||Tableau[Xr+1][Yr] == BORDUREVERTICALE)
+                    {
+                        affichage_tableau();
+                    }
+                    else
+                    {
+                        deplacement(&Xm,&Ym,&Xr+1,&Yr);
+                    }
+                    break;
+                }
+            }
+        }while(Tableau[Xm][Ym] == TRZ||Tableau[Xm][Ym] == TRQ||Tableau[Xm][Ym] == TRS||Tableau[Xm][Ym] == TRD);
+    }
+        //déplacement permis si aucune autre condition n'est validé
+    else
+    {
+        deplacement(&Xm,&Ym,&Xr,&Yr);
+    }
+}
