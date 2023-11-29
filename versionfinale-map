@@ -1,0 +1,209 @@
+#include <stdio.h>
+#include <windows.h>
+#include "biblio_fonction.h"
+
+char Tableau[LIGNE][COLONNE];
+//coordonnées initiales
+int Xi = 4,Yi = 8;
+
+int generation_map_test(int niv)
+{
+    //selectionneur de niveau
+    switch (niv)
+    {
+        case 1 :
+        {
+
+            //génération bordure
+            generator_bordure();
+            //generation blocs
+            generator_niv(1);
+            //initialisation pero
+            Xi = 4,Yi =8 ;
+            Tableau[Xi][Yi] = S;
+            break;
+        }
+        case 2 :
+        {
+            //génération bordure
+            generator_bordure();
+            //génération des blocs
+            //initialisation pero
+            Xi = 4,Yi =8 ;
+            Tableau[Xi][Yi] = S;
+            break;
+        }
+        case 3 :
+        {
+            //génération bordure
+            generator_bordure();
+            //génération des blocs
+            generator_niv(3);
+            //initialisation pero
+            Xi = 4,Yi =8 ;
+            Tableau[Xi][Yi] = S;
+            break;
+        }
+        case 4 :
+        {
+            //génération bordure
+            generator_bordure();
+            //génération des blocs
+            //initialisation pero
+            Xi = 4,Yi =8 ;
+            Tableau[Xi][Yi] = S;
+            break;
+        }
+    }
+    //affichage
+    affichage_tableau();
+}
+
+// affichage du tableau
+void affichage_tableau()
+{
+    system("cls");
+    for(int l = 0 ; l <= LIGNE-1 ;l++) {
+        for( int c = 0 ; c <= COLONNE-1 ; c++) {
+            printf(" %c", Tableau[l][c]) ;
+        }
+        printf("\n");
+    }
+}
+
+void generator_bordure()
+{
+    //Initialisation Tableau Colonne et ligne
+    for(int l = 0 ; l <= LIGNE-1 ;l++){
+        for(int c = 0 ; c <= COLONNE-1 ;c++){
+            if (l==0 || l==LIGNE-1)
+                Tableau[l][c] = BORDUREHORIZONTALE;
+            else if (c==0 || c==COLONNE-1)
+                Tableau[l][c] = BORDUREVERTICALE;
+            else if (c==1 && l == 1)
+                Tableau[l][c] = OISEAU;
+            else if (c==1 && l == LIGNE - 2)
+                Tableau[l][c] = OISEAU;
+            else if (c==COLONNE - 2 && l == 1)
+                Tableau[l][c] = OISEAU;
+            else if (c== COLONNE - 2 && l == LIGNE - 2)
+                Tableau[l][c] = OISEAU;
+            else
+                Tableau[l][c] = VIDE;
+        }
+    }
+}
+void generator_niv(int niv)
+{
+    switch (niv) {
+        case 1 :
+        {
+            //blocs cassables
+            Tableau[8][2] = BLOC_CASSABLE;
+            Tableau[6][5] = BLOC_CASSABLE;
+            Tableau[3][14] = BLOC_CASSABLE;
+            //piege
+            Tableau[7][12] = PIEGE;
+            //blocs movibles
+            Tableau[5][2] = BLOC_MOVIBLE;
+            Tableau[4][10] = BLOC_MOVIBLE;
+            Tableau[6][16] = BLOC_MOVIBLE;
+            //blocs fixes par lignes
+            for (int i = 1;i<3;i++){Tableau[2][i] = BLOC_AMOVIBLE;}
+
+            for (int i = 6;i<8;i++){Tableau[i][1] = BLOC_AMOVIBLE;}
+            Tableau[6][2] = BLOC_AMOVIBLE;
+            for (int i = 6;i<8;i++){Tableau[i][3] = BLOC_AMOVIBLE;}
+
+            for (int i = 4;i<8;i++){Tableau[1][i] = BLOC_AMOVIBLE;}
+            for (int i = 4;i<6;i++){Tableau[2][i] = BLOC_AMOVIBLE;}
+            Tableau[3][4] = BLOC_AMOVIBLE;
+            for (int i = 3;i<6;i++){Tableau[4][i] = BLOC_AMOVIBLE;}
+            Tableau[5][5] = BLOC_AMOVIBLE;
+            for (int i = 7;i<9;i++){Tableau[i][5] = BLOC_AMOVIBLE;}
+
+            for (int i = 7;i<9;i++){Tableau[3][i] = BLOC_AMOVIBLE;}
+            Tableau[4][7] = BLOC_AMOVIBLE;
+
+            for (int i = 8;i<10;i++){Tableau[6][i] = BLOC_AMOVIBLE;}
+            for (int i = 7;i<9;i++){Tableau[7][i] = BLOC_AMOVIBLE;}
+            for (int i = 10;i<14;i++){Tableau[8][i] = BLOC_AMOVIBLE;}
+
+            for (int i = 11;i<14;i++){Tableau[6][i] = BLOC_AMOVIBLE;}
+            Tableau[5][11] = BLOC_AMOVIBLE;
+
+            for (int i = 9;i<14;i++){Tableau[1][i] = BLOC_AMOVIBLE;}
+            for (int i = 10;i<14;i++){Tableau[2][i] = BLOC_AMOVIBLE;}
+            for (int i = 11;i<14;i++){Tableau[3][i] = BLOC_AMOVIBLE;}
+            Tableau[4][13] = BLOC_AMOVIBLE;
+
+            Tableau[1][17] = BLOC_AMOVIBLE;
+            Tableau[3][15] = BLOC_AMOVIBLE;
+            Tableau[5][15] = BLOC_AMOVIBLE;
+
+            for (int i = 7;i<9;i++){Tableau[i][15] = BLOC_AMOVIBLE;}
+
+            for (int i = 15;i<19;i++){Tableau[3][i] = BLOC_AMOVIBLE;}
+            for (int i = 17;i<19;i++){Tableau[4][i] = BLOC_AMOVIBLE;}
+            for (int i = 17;i<19;i++){Tableau[5][i] = BLOC_AMOVIBLE;}
+            Tableau[6][18] = BLOC_AMOVIBLE;
+            for (int i = 17;i<19;i++){Tableau[7][i] = BLOC_AMOVIBLE;}
+            break;
+        }
+        case 3 :
+        {
+            //blocs cassables
+            Tableau[7][8] = BLOC_CASSABLE;
+            Tableau[1][9] = BLOC_CASSABLE;
+            Tableau[3][6] = BLOC_CASSABLE;
+            Tableau[2][16] = BLOC_CASSABLE;
+            Tableau[2][17] = BLOC_CASSABLE;
+            //piege
+            Tableau[4][2] = PIEGE;
+            Tableau[7][1] = PIEGE;
+            Tableau[1][13] = PIEGE;
+            Tableau[6][16] = PIEGE;
+            Tableau[8][16] = PIEGE;
+            Tableau[8][9] = PIEGE;
+            Tableau[6][12] = PIEGE;
+            //blocs movibles
+            Tableau[3][7] = BLOC_MOVIBLE;
+            Tableau[4][7] = BLOC_MOVIBLE;
+            Tableau[3][9] = BLOC_MOVIBLE;
+            Tableau[6][9] = BLOC_MOVIBLE;
+            Tableau[6][11] = BLOC_MOVIBLE;
+            Tableau[5][11] = BLOC_MOVIBLE;
+            Tableau[6][1] = BLOC_MOVIBLE;
+            Tableau[7][4] = SURPRISE;
+
+            for (int i = 14;i<17;i++){Tableau[1][i] = TRZ;}
+            //blocs fixes par lignes
+            for (int i = 3;i<6;i++){Tableau[8][i] = BLOC_AMOVIBLE;}
+            for (int i = 2;i<5;i++){Tableau[i][5] = BLOC_AMOVIBLE;}
+            for (int i = 13;i<16;i++){Tableau[2][i] = BLOC_AMOVIBLE;}
+            for (int i = 11;i<14;i++){Tableau[8][i] = BLOC_AMOVIBLE;}
+
+            for (int i = 3;i<5;i++){Tableau[i][3] = BLOC_AMOVIBLE;}
+            for (int i = 2;i<4;i++){Tableau[6][i] = BLOC_AMOVIBLE;}
+            for (int i = 6;i<8;i++){Tableau[i][5] = BLOC_AMOVIBLE;}
+            for (int i = 5;i<7;i++){Tableau[i][7] = BLOC_AMOVIBLE;}
+            for (int i = 11;i<13;i++){Tableau[1][i] = BLOC_AMOVIBLE;}
+            for (int i = 3;i<5;i++){Tableau[i][11] = BLOC_AMOVIBLE;}
+            for (int i = 4;i<6;i++){Tableau[i][13] = BLOC_AMOVIBLE;}
+            for (int i = 3;i<5;i++){Tableau[i][15] = BLOC_AMOVIBLE;}
+            for (int i = 7;i<9;i++){Tableau[i][15] = BLOC_AMOVIBLE;}
+            for (int i = 17;i<19;i++){Tableau[4][i] = BLOC_AMOVIBLE;}
+
+            Tableau[1][3] = BLOC_AMOVIBLE;
+            Tableau[3][2] = BLOC_AMOVIBLE;
+            Tableau[3][8] = BLOC_AMOVIBLE;
+            Tableau[6][8] = BLOC_AMOVIBLE;
+            Tableau[3][10] = BLOC_AMOVIBLE;
+            Tableau[6][10] = BLOC_AMOVIBLE;
+            Tableau[2][18] = BLOC_AMOVIBLE;
+            Tableau[7][16] = BLOC_AMOVIBLE;
+
+            break;
+        }
+    }
+}
