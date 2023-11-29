@@ -1,0 +1,34 @@
+#ifndef VERSION_OFFICIELLE_BIBLIO_FONCTION_H
+#define VERSION_OFFICIELLE_BIBLIO_FONCTION_H
+#define LIGNE 10
+#define COLONNE 20
+//blocs
+#define BORDUREHORIZONTALE 'X' //0xCD
+#define BORDUREVERTICALE  'X' //0xBA
+#define VIDE ' '
+#define BLOC_AMOVIBLE 'X'
+#define BLOC_MOVIBLE 'M'
+#define BLOC_CASSABLE 'C'
+#define SURPRISE 'T'
+#define PIEGE 'P'
+#define TRZ 'Z'
+#define TRQ 'Q'
+#define TRS 'S'
+#define TRD 'D'
+//personnages
+#define S 'S'
+#define OISEAU 'V'
+//menu et actions
+void menu();
+void jeu(int niv,int victoire);
+void menu_touche(char monter,char droite,char descendre,char gauche ,char casser,char sauvegarder);
+int changeur_de_touche(char monter,char droite,char descendre,char gauche ,char casser,char sauvegarder);
+//jeu
+int mouvement(int Xm, int Ym, int Xr, int Yr);
+//map
+int generation_map_test(int niv);
+void generator_bordure();
+void generator_niv(int niv);
+//afficheur
+void affichage_tableau();
+#endif //VERSION_OFFICIELLE_BIBLIO_FONCTION_H
