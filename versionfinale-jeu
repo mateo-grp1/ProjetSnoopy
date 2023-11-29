@@ -16,7 +16,7 @@ void score(int tempsrestant, int niv)
 {
     int scoreduniveau;
     int scoretotal = 0;
-    scoreduniveau = tempsrestant*100;
+    scoreduniveau = tempsrestant*100; //definition du score
     printf("Le score du niveau %d est : %d", niv,scoreduniveau);
     scoretotal += scoreduniveau;
     printf("le score total est : %d", scoretotal);
@@ -54,23 +54,23 @@ void jeu(int niv,int victoire)
                 } while (!(touche == monter || touche == gauche || touche == descendre || touche == droite || touche == casser ||touche == sauvegarder));
                 //reponse à la touche
                 switch (touche) {
-                    case 'z' : {
+                    case 'z' : { //monter
                         printf("%d", mouvement(Xi - 1, Yi, Xi - 2, Yi));
                         break;
                     }
-                    case 'q' : {
+                    case 'q' : { //gauche
                         printf("%d", mouvement(Xi, Yi - 1, Xi, Yi - 2));
                         break;
                     }
-                    case 's' : {
+                    case 's' : { //descendre
                         printf("%d",mouvement(Xi + 1, Yi, Xi + 2, Yi));
                         break;
                     }
-                    case 'd' : {
+                    case 'd' : { //droite
                         printf("%d", mouvement(Xi, Yi + 1, Xi, Yi + 2));
                         break;
                     }
-                    case 'c' :{
+                    case 'c' :{ //casser
 
                         if (Tableau[Xi-1][Yi] == BLOC_CASSABLE)
                             Tableau[Xi-1][Yi] = VIDE ;
