@@ -150,6 +150,47 @@ void generator_niv(int niv)
             for (int i = 17;i<19;i++){Tableau[7][i] = BLOC_AMOVIBLE;}
             break;
         }
+         case 2 :
+        {
+            //bloc cassables
+            Tableau[2][9] = BLOC_CASSABLE;
+            Tableau[5][1] = BLOC_CASSABLE;
+            //piege
+            Tableau[2][14] = PIEGE;
+            Tableau[6][1] = PIEGE;
+            //blocs movibles
+            Tableau[3][13] = BLOC_MOVIBLE;
+            Tableau[4][3] = BLOC_MOVIBLE;   
+            Tableau[1][16] = BLOC_MOVIBLE;
+
+            //blocs fixes par lignes
+            for(int i = 5 ; i < 8 ; i++){Tableau[1][i] = BLOC_AMOVIBLE;}
+            for(int i = 2 ; i < 4 ; i++){Tableau[2][i] = BLOC_AMOVIBLE;}
+            for(int i = 10 ; i < 13 ; i++){Tableau[2][i] = BLOC_AMOVIBLE;}
+            for(int i = 15 ; i < 19; i++){Tableau[2][i] = BLOC_AMOVIBLE;}
+            for(int i = 5 ; i < 9 ; i++){Tableau[3][i] = BLOC_AMOVIBLE;}
+            for(int i = 15 ; i < 19 ; i++){Tableau[3][i] = BLOC_AMOVIBLE;}
+            for(int i = 14 ; i < 18 ; i++){Tableau[5][i] = BLOC_AMOVIBLE;}
+            for(int i = 11  ; i < 13 ; i++){Tableau[6][i] = BLOC_AMOVIBLE;}
+            for(int i = 9 ; i < 16; i++){Tableau[7][i] = BLOC_AMOVIBLE;}
+            for(int i = 3 ; i < 5; i++){Tableau[8][i] = BLOC_AMOVIBLE;}
+            for(int i = 8 ; i < 17 ; i++){Tableau[8][i] = BLOC_AMOVIBLE;}
+
+            //blocs fixes par colonnes 
+            for(int i = 5 ; i < 7 ; i++){Tableau[i][2] = BLOC_AMOVIBLE;}
+            for(int i = 5 ; i < 7 ; i++){Tableau[i][5] = BLOC_AMOVIBLE;}
+            for(int i = 5 ; i < 7 ; i++){Tableau[i][6] = BLOC_AMOVIBLE;}
+
+            Tableau[3][2] = BLOC_AMOVIBLE;
+            Tableau[3][10] = BLOC_AMOVIBLE;
+            Tableau[4][5] = BLOC_AMOVIBLE;
+            Tableau[4][12] = BLOC_AMOVIBLE;
+            Tableau[5][10] = BLOC_AMOVIBLE;
+            Tableau[6][8] = BLOC_AMOVIBLE;
+            Tableau[6][17] = BLOC_AMOVIBLE;
+
+            break;
+        }
         case 3 :
         {
             //blocs cassables
