@@ -266,7 +266,7 @@ void Color(int couleurTexte, int couleurFond){
 
 int main()
 {
-    Color(16,6);
+    Color(4,14);
     menu();
     return 0;
 }
