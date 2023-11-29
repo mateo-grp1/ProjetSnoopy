@@ -1,0 +1,272 @@
+#include <stdio.h>
+#include <windows.h>
+#include <stdlib.h>
+#include <conio.h>
+#include "biblio_fonction.h"
+
+void regles_du_jeu()
+{
+    char rep ;
+    char  monter ='z', droite = 'q',descendre = 's', gauche = 'd',casser = 'c',sauvegarder = 'S';
+    char choix_regles;
+    printf("REGLES DU JEU\n"
+           " Le but de Snoopy est de recuperer 4 oiseaux aux 4 coins du niveau en un temps imparti.\n Le probleme est que ces 4 oiseaux ne sont pas si faciles a recuperer.\n Une balle rebondit constamment dans le niveau afin de freiner Snoopy dans sa quete.\n Mais ce n'est pas tout, d'autres pieges sont presents!!\n A vous de jouer !\n"
+           "1 : Wiki Touches\n"
+           "2 : Wiki Blocs\n"
+           "3 : Revenir au menu\n"
+           "Selectionner un menu : ");
+    do
+    {
+        choix_regles = _getch();
+    }while (!(choix_regles == '1' || choix_regles == '2'||choix_regles == '3'));
+    switch (choix_regles) {
+        case '1' :
+        {
+            menu_touche(monter,droite,descendre,gauche,casser,sauvegarder);
+            break;
+        }
+        case '2' :
+        {
+            system("cls");
+            printf("les differents blocs sont :\n"
+                   "bordure (=): limite du terrain\n"
+                   "bloc movible (M): bloc deplasable une fois\n"
+                   "bloc amovible (A): bloc ayant ete deplace\n"
+                   "bloc cassable (C) : bloc destructible\n"
+                   "bloc piege (P) : bloc tuant instantannement\n\n"
+                   "\n\nVoulez vous retourner au menu ? ( 1 = oui)\n");
+            do
+            {
+                rep = _getch();
+            }while (rep != '1');
+            if ( rep == '1' ) {
+                menu();
+            }
+            break;
+        }
+        case '3' :
+        {
+            menu();
+            break;
+        }
+    }
+}
+void menu_touche(char monter,char droite,char descendre,char gauche ,char casser,char sauvegarder)
+{
+    char rep ;
+    do
+    {
+        system("cls");
+        printf("Les differentes touches sont : \n"
+               "%c : monter\n"
+               "%c : aller a gauche\n"
+               "%c : descendre\n"
+               "%c : aller a droite\n"
+               "%c : casser un bloc cassable\n"
+               "%c : sauvegarder\n"
+               "\n\nPour aller au menu (0)/ Pour changer les touches (1)\n",monter,gauche,descendre,droite,casser,sauvegarder);
+        do
+        {
+            rep = _getch();
+        }while (!(rep == '0'||rep == '1'));
+        switch (rep)
+        {
+            case '0' :
+            {
+                menu();
+                break;
+            }
+            case '1' :
+            {
+                changeur_de_touche(monter, droite, descendre, gauche, casser, sauvegarder);
+                break;
+            }
+        }
+    }while (rep != '0');
+}
+int changeur_de_touche(char monter,char droite,char descendre,char gauche ,char casser,char sauvegarder)
+{
+    int choix ;
+    system("cls");
+    printf("Pour changer une touche rentré le numero correspondant\n"
+           "1 : monter\n"
+           "2 : gauche\n"
+           "3 : descendre\n"
+           "4 : droite\n"
+           "5 : casser\n"
+           "6 : sauvegarder\n");
+    do
+    {
+        choix = _getch();
+    }while (!( choix == '1' || choix == '2' ||choix == '3' ||choix == '4' || choix == '5' ||choix == '6'));
+    system("cls");
+    switch(choix)
+    {
+        case '1' :
+        {
+            printf("Quel touche voulez vous utiliser pour cette action ?\n");
+            monter = _getch();
+            break;
+        }
+        case '2' :
+        {
+            printf("Quel touche voulez vous utiliser pour cette action ?\n");
+            gauche = _getch();
+            break;
+        }
+        case '3' :
+        {
+            printf("Quel touche voulez vous utiliser pour cette action ?\n");
+            descendre = _getch();
+            break;
+        }
+        case '4' :
+        {
+            printf("Quel touche voulez vous utiliser pour cette action ?\n");
+            droite = _getch();
+            break;
+        }
+        case '5' :
+        {
+            printf("Quel touche voulez vous utiliser pour cette action ?\n");
+            casser = _getch();
+            break;
+        }
+        case '6' :
+        {
+            printf("Quel touche voulez vous utiliser pour cette action ?\n");
+            sauvegarder = _getch();
+            break;
+        }
+    }
+    menu_touche(monter,droite,descendre,gauche,casser,sauvegarder);
+}
+
+void charger_une_partie()
+{
+    char rep ;
+    printf("\n\nVoulez vous retourner au menu ? ( 1 = oui, 0 = non)\n");
+    do
+    {
+        rep = _getch();
+    }while (rep != '1');
+
+    if ( rep == '1' ) {
+        menu();
+    }
+}
+void mot_de_passe()
+{
+    printf("Rentrez un mot de passe \n"
+           "Pour revenir au menu taper 1\n");
+    char mot_de_passe[] = "mot de passe";
+    char code1[] = "niv1eau";
+    char code2[] = "niv2eau";
+    char code3[] = "niv3eau";
+    char code4[] = "niv4eau";
+    char retour[] = "1";
+    do
+    {
+        scanf("%c",&mot_de_passe[8]);
+        if (mot_de_passe[8] == code1[8])
+        {
+            jeu(1,0);
+        }
+        else if (mot_de_passe[8] == code2[8])
+        {
+            jeu(2,0);
+        }
+        else if (mot_de_passe[8] == code3[8])
+        {
+            jeu(3,0);
+        }
+        else if (mot_de_passe[8] == code4[8])
+        {
+            jeu(4,0);
+        }
+    }while (mot_de_passe[8] != retour[8]);
+}
+void scores()
+{
+    int score = 0;
+    char rep ;
+    printf("Score actuel : %d", score);
+
+    printf("\n\nVoulez vous retourner au menu ? ( 1 = oui, 0 = non)\n");
+    do
+    {
+        rep = _getch();
+    }while (rep != '1');
+
+    if ( rep == '1' ) {
+        menu();
+    }
+}
+void menu()
+{
+    char choix_menu;
+    system("cls");
+    do
+    {
+        // Affichage du menu
+        int tailleTexte = 60;
+        char texte[] = "SNOOPY : LA REVANCHE";
+        printf("%*s\n", tailleTexte, texte);
+
+        printf("\nMENU DE JEU :\n"
+               "1 : REGLES DU JEU\n"
+               "2 : LANCER UNE NOUVELLE PARTIE\n"
+               "3 : CHARGER UNE PARTIE\n"
+               "4 : MOT DE PASSE\n"
+               "5 : SCORES\n"
+               "6 : QUITTER\n"
+               "Selectionner un menu : ");
+        choix_menu = _getch();
+        system("cls");
+        switch (choix_menu) {
+            case '1':
+            {
+                regles_du_jeu();
+                break;
+            }
+            case '2':
+            {
+                jeu(1,0);
+                break;
+            }
+            case '3':
+            {
+                charger_une_partie();
+                break;
+            }
+            case '4':
+            {
+                mot_de_passe();
+                break;
+            }
+            case '5':
+            {
+                scores();
+                break;
+            }
+            case '6' :
+            {
+                system("cls");
+                break;
+            }
+        }
+    } while (!( choix_menu == '1' || choix_menu == '2' ||choix_menu == '3' ||choix_menu == '4' ||choix_menu == '5' ||choix_menu == '6'));
+}
+void Color(int couleurTexte, int couleurFond);
+//Fonction pour changer la couleur
+void Color(int couleurTexte, int couleurFond){
+    HANDLE H= GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(H,couleurFond*16+couleurTexte);
+}
+
+int main()
+{
+    Color(16,6);
+    menu();
+    return 0;
+}
