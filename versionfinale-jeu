@@ -1,0 +1,143 @@
+#include <stdio.h>
+#include "biblio_fonction.h"
+#include <conio.h>
+#include <unistd.h>
+#include <time.h>
+
+extern char Tableau[LIGNE][COLONNE];
+//coordonnées initiales
+extern int Xi,Yi;
+
+struct Balle {
+    int X,Y,vecX,vecY;
+};
+
+void score(int tempsrestant, int niv)
+{
+    int scoreduniveau;
+    int scoretotal = 0;
+    scoreduniveau = tempsrestant*100;
+    printf("Le score du niveau %d est : %d", niv,scoreduniveau);
+    scoretotal += scoreduniveau;
+    printf("le score total est : %d", scoretotal);
+}
+
+void jeu(int niv,int victoire)
+{
+    //touches
+    char touche;
+    char  monter ='z', droite = 'q',descendre = 's', gauche = 'd',casser = 'c',sauvegarder = 'S';
+    //timeur
+    int seconds = 120;
+    int i = 0 , n = 1;
+    //balle
+    char codeballe = '0';
+    char stockeur = ' ';
+    //compteur
+    int compteur_vie = 3;
+
+    if (victoire == 0)
+    {
+        //intialisation map
+        printf("%d", generation_map_test(niv));
+        struct Balle B;
+        B.vecX=1; B.vecY=1;
+        B.X=4; B.Y=1;
+        clock_t temps_ecoule;
+        clock_t start_time = clock();
+        do {
+            //boucle d'acquisition
+            if (_kbhit())
+            {
+                do {
+                    touche = _getch();
+                } while (!(touche == monter || touche == gauche || touche == descendre || touche == droite || touche == casser ||touche == sauvegarder));
+                //reponse à la touche
+                switch (touche) {
+                    case 'z' : {
+                        printf("%d", mouvement(Xi - 1, Yi, Xi - 2, Yi));
+                        break;
+                    }
+                    case 'q' : {
+                        printf("%d", mouvement(Xi, Yi - 1, Xi, Yi - 2));
+                        break;
+                    }
+                    case 's' : {
+                        printf("%d",mouvement(Xi + 1, Yi, Xi + 2, Yi));
+                        break;
+                    }
+                    case 'd' : {
+                        printf("%d", mouvement(Xi, Yi + 1, Xi, Yi + 2));
+                        break;
+                    }
+                    case 'c' :{
+
+                        if (Tableau[Xi-1][Yi] == BLOC_CASSABLE)
+                            Tableau[Xi-1][Yi] = VIDE ;
+                        if (Tableau[Xi+1][Yi] == BLOC_CASSABLE)
+                            Tableau[Xi+1][Yi] = VIDE;
+                        if (Tableau[Xi][Yi-1] == BLOC_CASSABLE)
+                            Tableau[Xi][Yi-1] = VIDE;
+                        if (Tableau[Xi][Yi+1] == BLOC_CASSABLE)
+                            Tableau[Xi][Yi+1] = VIDE;
+                        affichage_tableau();
+                        break;
+                    }
+                }
+            }
+            temps_ecoule = clock() - start_time;
+            if ( temps_ecoule/1000 == i )
+            {
+                if ( i == 2*n)
+                {
+                    if (B.X==LIGNE-2)
+                        B.vecX=-1;
+                    else if (B.Y==COLONNE-2)
+                        B.vecY=-1;
+                    else if (B.X==1)
+                        B.vecX=1;
+                    else if (B.Y==1)
+                        B.vecY=1;
+                    B.X += B.vecX;
+                    B.Y += B.vecY;
+                    Tableau[B.X-B.vecX][B.Y-B.vecY] = stockeur;
+                    stockeur = Tableau[B.X][B.Y];
+                    Tableau[B.X][B.Y] = codeballe;
+                    n++;
+                    affichage_tableau();
+                }
+                printf("Temps restant : %ld\r", seconds - (temps_ecoule / 1000));
+                i++;
+            }
+            if(temps_ecoule == 0)
+            {
+                compteur_vie--;
+                if (compteur_vie == 0)
+                {
+                    jeu(0,-1);
+                }
+            }
+        }while(1);
+    }
+    else
+    {
+        system("cls");
+        if (victoire == 1) {
+            printf("You win !!!\n");
+            score(i, niv-1);
+            sleep(5);
+            if (niv == 4) {
+                menu();
+            }
+            victoire = 0;
+            jeu(niv, victoire);
+        }
+        else if (victoire == -1)
+        {
+            printf("You lose !!!\n");
+            sleep(5);
+            menu();
+        }
+    }
+}
+
