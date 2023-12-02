@@ -29,6 +29,7 @@ int mouvement(int Xm, int Ym, int Xr, int Yr);
 int generation_map_test(int niv);
 void generator_bordure();
 void generator_niv(int niv);
+void gotoligcol(int lig, int col);
 //afficheur
 void affichage_tableau();
 #endif //VERSION_OFFICIELLE_BIBLIO_FONCTION_H
