@@ -5,8 +5,11 @@
 #include <time.h>
 
 extern char Tableau[LIGNE][COLONNE];
+extern int NIV;
 //coordonnées initiales
 extern int Xi,Yi;
+//compteur
+int compteur_vie = 3;
 
 struct Balle {
     int X,Y,vecX,vecY;
@@ -16,74 +19,81 @@ void score(int tempsrestant, int niv)
 {
     int scoreduniveau;
     int scoretotal = 0;
-    scoreduniveau = tempsrestant*100; //definition du score
+    scoreduniveau = tempsrestant*100;
     printf("Le score du niveau %d est : %d", niv,scoreduniveau);
     scoretotal += scoreduniveau;
     printf("le score total est : %d", scoretotal);
 }
 
-void jeu(int niv,int victoire)
+void acquisition_touche(char monter,char gauche,char descendre,char droite,char casser,char pause)
+{
+    char touche;
+    do {
+        touche = _getch();
+    } while (!(touche == monter || touche == gauche || touche == descendre || touche == droite || touche == casser ||touche == pause));
+    //reponse à la touche
+    if ( touche == monter)
+    {
+        printf("%d", mouvement(Xi - 1, Yi, Xi - 2, Yi));
+    }
+    else if ( touche == gauche)
+    {
+        printf("%d", mouvement(Xi, Yi - 1, Xi, Yi - 2));
+    }
+    else if ( touche == descendre)
+    {
+        printf("%d",mouvement(Xi + 1, Yi, Xi + 2, Yi));
+    }
+    else if ( touche == droite)
+    {
+        printf("%d", mouvement(Xi, Yi + 1, Xi, Yi + 2));
+    }
+    else if ( touche == casser)
+    {
+        if (Tableau[Xi-1][Yi] == BLOC_CASSABLE)
+            Tableau[Xi-1][Yi] = VIDE ;
+        if (Tableau[Xi+1][Yi] == BLOC_CASSABLE)
+            Tableau[Xi+1][Yi] = VIDE;
+        if (Tableau[Xi][Yi-1] == BLOC_CASSABLE)
+            Tableau[Xi][Yi-1] = VIDE;
+        if (Tableau[Xi][Yi+1] == BLOC_CASSABLE)
+            Tableau[Xi][Yi+1] = VIDE;
+        affichage_tableau();
+    }
+    else if ( touche == pause)
+    {
+        menu_pause(0,NIV);
+    }
+}
+
+void jeu(int niv,int victoire,int partie)
 {
     //touches
-    char touche;
-    char  monter ='z', droite = 'q',descendre = 's', gauche = 'd',casser = 'c',sauvegarder = 'S';
+    char  monter ='z', gauche = 'q',descendre = 's', droite = 'd',casser = 'c',pause = 'P';
     //timeur
     int seconds = 120;
-    int i = 0 , n = 1;
-    //balle
-    char codeballe = '0';
+    int i = 0 , n = 0 ;
+    //stockeur
     char stockeur = ' ';
-    //compteur
-    int compteur_vie = 3;
 
     if (victoire == 0)
     {
         //intialisation map
-        printf("%d", generation_map_test(niv));
+        printf("%d", generation_map_test(niv,partie));
         struct Balle B;
         B.vecX=1; B.vecY=1;
         B.X=4; B.Y=1;
         clock_t temps_ecoule;
         clock_t start_time = clock();
         do {
+            if (compteur_vie == 0)
+            {
+                jeu(0,-1,0);
+            }
             //boucle d'acquisition
             if (_kbhit())
             {
-                do {
-                    touche = _getch();
-                } while (!(touche == monter || touche == gauche || touche == descendre || touche == droite || touche == casser ||touche == sauvegarder));
-                //reponse à la touche
-                switch (touche) {
-                    case 'z' : { //monter
-                        printf("%d", mouvement(Xi - 1, Yi, Xi - 2, Yi));
-                        break;
-                    }
-                    case 'q' : { //gauche
-                        printf("%d", mouvement(Xi, Yi - 1, Xi, Yi - 2));
-                        break;
-                    }
-                    case 's' : { //descendre
-                        printf("%d",mouvement(Xi + 1, Yi, Xi + 2, Yi));
-                        break;
-                    }
-                    case 'd' : { //droite
-                        printf("%d", mouvement(Xi, Yi + 1, Xi, Yi + 2));
-                        break;
-                    }
-                    case 'c' :{ //casser
-
-                        if (Tableau[Xi-1][Yi] == BLOC_CASSABLE)
-                            Tableau[Xi-1][Yi] = VIDE ;
-                        if (Tableau[Xi+1][Yi] == BLOC_CASSABLE)
-                            Tableau[Xi+1][Yi] = VIDE;
-                        if (Tableau[Xi][Yi-1] == BLOC_CASSABLE)
-                            Tableau[Xi][Yi-1] = VIDE;
-                        if (Tableau[Xi][Yi+1] == BLOC_CASSABLE)
-                            Tableau[Xi][Yi+1] = VIDE;
-                        affichage_tableau();
-                        break;
-                    }
-                }
+                save_touche(2,1,monter,gauche,descendre,droite,casser,pause);
             }
             temps_ecoule = clock() - start_time;
             if ( temps_ecoule/1000 == i )
@@ -102,20 +112,24 @@ void jeu(int niv,int victoire)
                     B.Y += B.vecY;
                     Tableau[B.X-B.vecX][B.Y-B.vecY] = stockeur;
                     stockeur = Tableau[B.X][B.Y];
-                    Tableau[B.X][B.Y] = codeballe;
+                    if ( stockeur == S)
+                    {
+                        compteur_vie--;
+                        stockeur = ' ';
+                    }
+                    Tableau[B.X][B.Y] = CODEBALLE;
                     n++;
                     affichage_tableau();
                 }
-                printf("Temps restant : %ld\r", seconds - (temps_ecoule / 1000));
+                printf(" Temps restant : %ld\r", seconds - (temps_ecoule / 1000));
+                printf("%d",compteur_vie);
                 i++;
             }
-            if(temps_ecoule == 0)
+            if(i == 120)
             {
                 compteur_vie--;
-                if (compteur_vie == 0)
-                {
-                    jeu(0,-1);
-                }
+                i = 0;
+                temps_ecoule = 1000*seconds;
             }
         }while(1);
     }
@@ -126,11 +140,12 @@ void jeu(int niv,int victoire)
             printf("You win !!!\n");
             score(i, niv-1);
             sleep(5);
+            niv++;
             if (niv == 4) {
                 menu();
             }
             victoire = 0;
-            jeu(niv, victoire);
+            jeu(niv,0,0);
         }
         else if (victoire == -1)
         {
@@ -141,3 +156,34 @@ void jeu(int niv,int victoire)
     }
 }
 
+void menu_pause(int choix,int niv)
+{
+    system("cls");
+    printf("MENU PAUSE \n"
+           "1 : Continuer\n"
+           "2 : Sauvegarder\n"
+           "3 : Quitter\n");
+    do
+    {
+        choix = _getch();
+    }while (!(choix == '1' || choix == '2'||choix == '3'||choix == '4'));
+    switch(choix)
+    {
+        case '1' :
+        {
+            jeu(niv,0,1);
+            break;
+        }
+        case '2' :
+        {
+            sauvegarde(0);
+            break;
+        }
+        case '3' :
+        {
+            videur();
+            menu();
+            break;
+        }
+    }
+}
