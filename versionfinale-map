@@ -6,53 +6,61 @@ char Tableau[LIGNE][COLONNE];
 //coordonnées initiales
 int Xi = 4,Yi = 8;
 
-int generation_map_test(int niv)
+int generation_map_test(int niv, int partie)
 {
-    //selectionneur de niveau
-    switch (niv)
+    if (partie == 1)
     {
-        case 1 :
+        charge(1,0);
+    }
+    else
+    {
+        //selectionneur de niveau
+        switch (niv)
         {
+            case 1 :
+            {
 
-            //génération bordure
-            generator_bordure();
-            //generation blocs
-            generator_niv(1);
-            //initialisation pero
-            Xi = 4,Yi =8 ;
-            Tableau[Xi][Yi] = S;
-            break;
-        }
-        case 2 :
-        {
-            //génération bordure
-            generator_bordure();
-            //génération des blocs
-            //initialisation pero
-            Xi = 4,Yi =8 ;
-            Tableau[Xi][Yi] = S;
-            break;
-        }
-        case 3 :
-        {
-            //génération bordure
-            generator_bordure();
-            //génération des blocs
-            generator_niv(3);
-            //initialisation pero
-            Xi = 4,Yi =8 ;
-            Tableau[Xi][Yi] = S;
-            break;
-        }
-        case 4 :
-        {
-            //génération bordure
-            generator_bordure();
-            //génération des blocs
-            //initialisation pero
-            Xi = 4,Yi =8 ;
-            Tableau[Xi][Yi] = S;
-            break;
+                //génération bordure
+                generator_bordure();
+                //generation blocs
+                generator_niv(1);
+                //initialisation pero
+                Xi = 4,Yi =8 ;
+                Tableau[Xi][Yi] = S;
+                break;
+            }
+            case 2 :
+            {
+                //génération bordure
+                generator_bordure();
+                //génération des blocs
+                generator_niv(2);
+                //initialisation pero
+                Xi = 4,Yi =8 ;
+                Tableau[Xi][Yi] = S;
+                break;
+            }
+            case 3 :
+            {
+                //génération bordure
+                generator_bordure();
+                //génération des blocs
+                generator_niv(3);
+                //initialisation pero
+                Xi = 4,Yi =8 ;
+                Tableau[Xi][Yi] = S;
+                break;
+            }
+            case 4 :
+            {
+                //génération bordure
+                generator_bordure();
+                //génération des blocs
+                //initialisation pero
+                Xi = 4,Yi =8 ;
+                Tableau[Xi][Yi] = S;
+                break;
+            }
         }
     }
     //affichage
@@ -112,14 +120,14 @@ void generator_niv(int niv)
             //blocs fixes par lignes
             for (int i = 1;i<3;i++){Tableau[2][i] = BLOC_AMOVIBLE;}
 
-            for (int i = 6;i<8;i++){Tableau[i][1] = BLOC_AMOVIBLE;}
+            for (int i = 6;i<8;i++){Tableau[i][1] = TRZ;}
             Tableau[6][2] = BLOC_AMOVIBLE;
             for (int i = 6;i<8;i++){Tableau[i][3] = BLOC_AMOVIBLE;}
 
             for (int i = 4;i<8;i++){Tableau[1][i] = BLOC_AMOVIBLE;}
             for (int i = 4;i<6;i++){Tableau[2][i] = BLOC_AMOVIBLE;}
             Tableau[3][4] = BLOC_AMOVIBLE;
-            for (int i = 3;i<6;i++){Tableau[4][i] = BLOC_AMOVIBLE;}
+            for (int i = 3;i<6;i++){Tableau[4][i] = TRQ;}
             Tableau[5][5] = BLOC_AMOVIBLE;
             for (int i = 7;i<9;i++){Tableau[i][5] = BLOC_AMOVIBLE;}
 
@@ -151,7 +159,7 @@ void generator_niv(int niv)
             for (int i = 17;i<19;i++){Tableau[7][i] = BLOC_AMOVIBLE;}
             break;
         }
-         case 2 :
+        case 2 :
         {
             //bloc cassables
             Tableau[2][9] = BLOC_CASSABLE;
@@ -161,8 +169,8 @@ void generator_niv(int niv)
             Tableau[6][1] = PIEGE;
             //blocs movibles
             Tableau[3][13] = BLOC_MOVIBLE;
-            Tableau[4][3] = BLOC_MOVIBLE;   
-            Tableau[1][16] = BLOC_MOVIBLE;
+            Tableau[4][3] = BLOC_MOVIBLE;
+            Tableau[1][16] = SURPRISE;
 
             //blocs fixes par lignes
             for(int i = 5 ; i < 8 ; i++){Tableau[1][i] = BLOC_AMOVIBLE;}
@@ -177,7 +185,7 @@ void generator_niv(int niv)
             for(int i = 3 ; i < 5; i++){Tableau[8][i] = BLOC_AMOVIBLE;}
             for(int i = 8 ; i < 17 ; i++){Tableau[8][i] = BLOC_AMOVIBLE;}
 
-            //blocs fixes par colonnes 
+            //blocs fixes par colonnes
             for(int i = 5 ; i < 7 ; i++){Tableau[i][2] = BLOC_AMOVIBLE;}
             for(int i = 5 ; i < 7 ; i++){Tableau[i][5] = BLOC_AMOVIBLE;}
             for(int i = 5 ; i < 7 ; i++){Tableau[i][6] = BLOC_AMOVIBLE;}
@@ -189,7 +197,6 @@ void generator_niv(int niv)
             Tableau[5][10] = BLOC_AMOVIBLE;
             Tableau[6][8] = BLOC_AMOVIBLE;
             Tableau[6][17] = BLOC_AMOVIBLE;
-
             break;
         }
         case 3 :
