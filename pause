@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <conio.h>
+#include <unistd.h>
+
+ char touche
+
+void pause(){
+    touche = _getch();
+    if (_getch() == 'p')
+        while (!kbhit())
+            sleep(1000);
