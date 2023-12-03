@@ -1,0 +1,40 @@
+#include "biblio_fonction.h"
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+
+extern char Tableau[LIGNE][COLONNE];
+extern int compteur_vie;
+extern int Xi,Yi;
+extern int compteur_oiseau;
+int vide = ' ';
+
+void surprise(){
+    srand(time(NULL)); // Initialisation du générateur de nb aleatoire
+    int nbAleatoire = (rand() % 2) + 1; //genere nb aléatoire entre 1 et 2
+    if ( nbAleatoire == 1)
+    {
+        if (compteur_vie !=1)
+            compteur_vie--;
+    }
+    if(nbAleatoire== 2){
+        srand(time(NULL)); // Initialisation du générateur de nb aleatoire
+        int AleatoireOiseau = (rand() % 4) + 1; //genere nb aléatoire entre 1 et 4
+        if (AleatoireOiseau == 1){
+            Tableau[1][1] = vide;
+            compteur_oiseau--;
+        }
+        else if (AleatoireOiseau == 2){
+            Tableau[8][1] = vide ;
+            compteur_oiseau--;
+        }
+        else if (AleatoireOiseau == 3){
+            Tableau[1][18] = vide;
+            compteur_oiseau--;
+        }
+        else if (AleatoireOiseau == 4 ){
+            Tableau[8][18] = vide;
+            compteur_oiseau--;
+        }
+    }
+}
