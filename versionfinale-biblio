@@ -4,8 +4,8 @@
 #define COLONNE 20
 #define TAILLE 20
 //blocs
-#define BORDUREHORIZONTALE 'X' //0xCD
-#define BORDUREVERTICALE  'X' //0xBA
+#define BORDUREHORIZONTALE '_' //0xCD
+#define BORDUREVERTICALE  '|' //0xBA
 #define VIDE ' '
 #define BLOC_AMOVIBLE 'X'
 #define BLOC_MOVIBLE 'M'
