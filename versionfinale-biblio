@@ -17,7 +17,7 @@
 #define TRS 'S'
 #define TRD 'D'
 //personnages
-#define S 'J'
+#define S '$'
 #define OISEAU 'V'
 #define CODEBALLE 'O'
 //menu et actions
