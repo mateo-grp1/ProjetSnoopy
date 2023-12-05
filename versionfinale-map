@@ -10,7 +10,11 @@ int generation_map_test(int niv, int partie)
 {
     if (partie == 1)
     {
-        charge(1,0);
+        rAm(2);
+    }
+    else if (partie == 2)
+    {
+        menu_charge();
     }
     else
     {
@@ -25,6 +29,10 @@ int generation_map_test(int niv, int partie)
                 //generation blocs
                 generator_niv(1);
                 //initialisation pero
+                Tableau[5][5] = TELEPORTEUR2;
+                Tableau[7][7] = TELEPORTEUR1;
+                Tableau[12][2] = TRZ;
+                Tableau[13][2] = TRZ;
                 Xi = 4,Yi =8 ;
                 Tableau[Xi][Yi] = S;
                 break;
@@ -120,14 +128,14 @@ void generator_niv(int niv)
             //blocs fixes par lignes
             for (int i = 1;i<3;i++){Tableau[2][i] = BLOC_AMOVIBLE;}
 
-            for (int i = 6;i<8;i++){Tableau[i][1] = TRZ;}
+            for (int i = 6;i<8;i++){Tableau[i][1] = BLOC_AMOVIBLE;}
             Tableau[6][2] = BLOC_AMOVIBLE;
             for (int i = 6;i<8;i++){Tableau[i][3] = BLOC_AMOVIBLE;}
 
             for (int i = 4;i<8;i++){Tableau[1][i] = BLOC_AMOVIBLE;}
             for (int i = 4;i<6;i++){Tableau[2][i] = BLOC_AMOVIBLE;}
             Tableau[3][4] = BLOC_AMOVIBLE;
-            for (int i = 3;i<6;i++){Tableau[4][i] = TRQ;}
+            for (int i = 3;i<6;i++){Tableau[4][i] = BLOC_AMOVIBLE;}
             Tableau[5][5] = BLOC_AMOVIBLE;
             for (int i = 7;i<9;i++){Tableau[i][5] = BLOC_AMOVIBLE;}
 
@@ -255,4 +263,23 @@ void generator_niv(int niv)
             break;
         }
     }
+}
+
+void bloc_depop(int j)
+{
+    if (j == 1)
+    {
+        Tableau[1][3] = 'G';
+        Tableau[3][2] = 'G';
+        Tableau[3][8] = 'G';
+        Tableau[6][8] = 'G';
+    }
+    if (j == 0)
+    {
+        Tableau[1][3] = VIDE;
+        Tableau[3][2] = VIDE;
+        Tableau[3][8] = VIDE;
+        Tableau[6][8] = VIDE;
+    }
+    affichage_tableau();
 }
