@@ -43,7 +43,7 @@ void affichage_tableau();
 void gotoligcol(int lig, int col);
 //sauvegarde
 void rAm(int choix);
-void charge();
+void menu_charge();
 void menu_save();
 void save_supp(int choix,int compteur_vie,int compteur_oiseau,int temps_restant,int Xi,int Yi);
 void save_touche(int choix,int jeu,int niv, char monter,char gauche, char descendre, char droite, char casser, char pause);
