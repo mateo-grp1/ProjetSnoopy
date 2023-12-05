@@ -76,7 +76,7 @@ void jeu(int niv,int victoire,int partie)
     //stockeur
     char stockeur = ' ';
 
-    if (victoire == 0)
+   if (victoire == 0)
     {
         //intialisation map
         printf("%d", generation_map_test(niv,partie));
@@ -85,6 +85,7 @@ void jeu(int niv,int victoire,int partie)
         B.X=4; B.Y=1;
         clock_t temps_ecoule;
         clock_t start_time = clock();
+
         do {
             if (compteur_vie == 0)
             {
@@ -98,7 +99,7 @@ void jeu(int niv,int victoire,int partie)
             temps_ecoule = clock() - start_time;
             if ( temps_ecoule/1000 == i )
             {
-                if ( i == 2*n)
+                if ( i == n)
                 {
                     if (B.X==LIGNE-2)
                         B.vecX=-1;
@@ -112,25 +113,28 @@ void jeu(int niv,int victoire,int partie)
                     B.Y += B.vecY;
                     Tableau[B.X-B.vecX][B.Y-B.vecY] = stockeur;
                     stockeur = Tableau[B.X][B.Y];
-                    if ( stockeur == S)
+                    temps = seconds - (temps_ecoule / 1000);
+                    if (stockeur == S)
                     {
                         compteur_vie--;
                         stockeur = ' ';
+                        temps = 120;
+                        seconds = (temps_ecoule/1000)+seconds;
                     }
                     Tableau[B.X][B.Y] = CODEBALLE;
                     n++;
                     affichage_tableau();
+                    i++;
                 }
-                printf(" Temps restant : %ld\r", seconds - (temps_ecoule / 1000));
-                printf("%d",compteur_vie);
-                i++;
+
+                    printf(" \rTemps restant : %d", temps);
+                    printf("\nVies restantes : %d",compteur_vie);
             }
-            if(i == 120)
+            if(temps == 0)
             {
-                compteur_vie--;
-                i = 0;
-                temps_ecoule = 1000*seconds;
+                compteur_vie = 0;
             }
+
         }while(1);
     }
     else
