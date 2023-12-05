@@ -132,7 +132,7 @@ void jeu(int niv,int victoire,int partie)
             }
             if(temps == 0)
             {
-                compteur_vie = 0;
+                compteur_vie--;
             }
 
         }while(1);
