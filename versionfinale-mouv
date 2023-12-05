@@ -1,5 +1,8 @@
 #include "biblio_fonction.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 extern char Tableau[LIGNE][COLONNE];
 //coordonnées initiales
 extern int Xi,Yi;
@@ -8,7 +11,7 @@ int NIV = 1;
 int compteur_oiseau = 4;
 extern int compteur_vie ;
 
-void deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
+int deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
 {
     char stockeur = VIDE;
     //effacement de la position antèrieur
@@ -69,6 +72,29 @@ void deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
             }
         }while(stockeur  == TRZ||stockeur  == TRQ||stockeur  == TRS||stockeur == TRD);
     }
+    else if ( stockeur == TELEPORTEUR1||stockeur == TELEPORTEUR2)
+    {
+        //déplacement
+        Tableau[*pXm][*pYm] = S;
+        //incrémentation pour la valeur initale suivante
+        Xi = *pXm;Yi = *pYm;
+        //affichage de la modification
+        affichage_tableau();
+        if (stockeur == TELEPORTEUR1)
+        {
+            Tableau[*pXm][*pYm] = stockeur;
+            //teleportation
+            Tableau[5][5] = S;
+            Xi = 5; Yi = 5;
+        }
+        else
+        {
+            Tableau[*pXm][*pYm] = stockeur;
+            //teleportation
+            Tableau[7][7] = S;
+            Xi = 7; Yi = 7;
+        }
+    }
         //SI MOUV MODIF TERRE
     else
     {
@@ -78,7 +104,7 @@ void deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
             //déplacement du bloc
             Tableau[*pXr][*pYr] = BLOC_AMOVIBLE;
         }
-        if (stockeur == OISEAU)
+        else if (stockeur == OISEAU)
         {
             compteur_oiseau--;
 
@@ -91,7 +117,7 @@ void deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
                 jeu(NIV,1,0);
             }
         }
-        if (stockeur == PIEGE)
+        else if (stockeur == PIEGE)
         {
             //modification du stockeur
             stockeur = VIDE;
@@ -101,11 +127,22 @@ void deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
         else if (stockeur == CODEBALLE)
         {
             compteur_vie--;
+            Tableau[4][8] = S;
+            Xi = 4;Yi = 8;
+            stockeur = VIDE;
         }
         //déplacement
         Tableau[*pXm][*pYm] = S;
         //incrémentation pour la valeur initale suivante
         Xi = *pXm, Yi = *pYm;
+    }
+    if (!(Tableau[5][5] == S ||Tableau[5][5] == CODEBALLE))
+    {
+        Tableau[5][5] = TELEPORTEUR2;
+    }
+    if (!(Tableau[7][7] == S ||Tableau[7][7] == CODEBALLE))
+    {
+        Tableau[7][7] = TELEPORTEUR1;
     }
     //affichage de la modification
     affichage_tableau();
@@ -135,9 +172,44 @@ int mouvement(int Xm, int Ym, int Xr, int Yr)
     {
         deplacement(&Xm,&Ym,&Xm,&Ym);
     }
+    else if (Tableau[Xm][Ym] == SURPRISE)
+    {
+        surprise();
+        deplacement(&Xm,&Ym,&Xm,&Ym);
+    }
     //déplacement permis si aucune autre condition n'est validé
     else
     {
         deplacement(&Xm,&Ym,&Xr,&Yr);
+    }
+}
+
+void surprise()
+{
+    srand(time(NULL)); // Initialisation du générateur de nb aleatoire
+    int nbAleatoire = (rand() % 2) + 1; //genere nb aléatoire entre 1 et 2
+    if ( nbAleatoire == 1)
+    {
+        compteur_vie++;
+    }
+    if(nbAleatoire== 2){
+        srand(time(NULL)); // Initialisation du générateur de nb aleatoire
+        int AleatoireOiseau = (rand() % 4) + 1; //genere nb aléatoire entre 1 et 4
+        if (AleatoireOiseau == 1){
+            Tableau[1][1] = VIDE;
+            compteur_oiseau--;
+        }
+        else if (AleatoireOiseau == 2){
+            Tableau[8][1] = VIDE ;
+            compteur_oiseau--;
+        }
+        else if (AleatoireOiseau == 3){
+            Tableau[1][18] = VIDE;
+            compteur_oiseau--;
+        }
+        else if (AleatoireOiseau == 4 ){
+            Tableau[8][18] = VIDE;
+            compteur_oiseau--;
+        }
     }
 }
