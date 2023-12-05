@@ -4,8 +4,6 @@
 #include <conio.h>
 #include "biblio_fonction.h"
 
-
-
 void gotoligcol(int lig, int col)
 {
     COORD mycoord;
@@ -31,7 +29,7 @@ void regles_du_jeu()
     switch (choix) {
         case '1' :
         {
-            save_touche(2,0,monter,gauche,descendre,droite,casser,pause);
+            save_touche(2,0,0,monter,gauche,descendre,droite,casser,pause);
             break;
         }
         case '2' :
@@ -82,7 +80,7 @@ void menu_touche(int jeu,char monter,char gauche,char descendre,char droite ,cha
         {
             case '0' :
             {
-                save_touche(1,jeu,monter,gauche,descendre,droite,casser,pause);
+                save_touche(1,0,jeu,monter,gauche,descendre,droite,casser,pause);
                 menu();
                 break;
             }
@@ -149,30 +147,15 @@ int changeur_de_touche(int jeu,char monter,char gauche,char descendre,char droit
             break;
         }
     }
-    save_touche(1,jeu,monter,gauche,descendre,droite,casser,pause);
-    save_touche(2,jeu,monter,gauche,descendre,droite,casser,pause);
+    save_touche(1,jeu,0,monter,gauche,descendre,droite,casser,pause);
+    save_touche(2,jeu,0,monter,gauche,descendre,droite,casser,pause);
 }
 
-void charger_une_partie()
-{
-    int choix;
-    printf("Menu Sauvegarde\n"
-           "1 : \n"
-           "2 : \n"
-           "3 : \n"
-           "Choississez ou sauvegarder votre partie\n"
-           "Pour retourner au menu pause, taper 4");
-    do
-    {
-        choix = _getch();
-    }while (!(choix == '1' || choix == '2'||choix == '3'||choix == '4'));
-
-}
 void mot_de_passe()
 {
     printf("Rentrez un mot de passe \n"
            "Pour revenir au menu taper 1\n");
-    char mot_de_passe[TAILLE+1] = "mot de passe";
+    char mot_de_passe[10] = " ";
     char code1[] = "niv1eau";
     char code2[] = "niv2eau";
     char code3[] = "niv3eau";
@@ -180,25 +163,25 @@ void mot_de_passe()
     char retour[] = "1";
     do
     {
-        scanf("%c",&mot_de_passe[TAILLE]);
+        scanf("%c",&mot_de_passe[8]);
 
-        if (mot_de_passe[TAILLE] == code1[TAILLE])
+        if (mot_de_passe[8] == code1[8])
         {
             jeu(1,0,0);
         }
-        else if (mot_de_passe[TAILLE] == code2[TAILLE])
+        else if (mot_de_passe[8] == code2[8])
         {
             jeu(2,0,0);
         }
-        else if (mot_de_passe[TAILLE] == code3[TAILLE])
+        else if (mot_de_passe[8] == code3[8])
         {
             jeu(3,0,0);
         }
-        else if (mot_de_passe[TAILLE] == code4[TAILLE])
+        else if (mot_de_passe[8] == code4[8])
         {
             jeu(4,0,0);
         }
-    }while (mot_de_passe[TAILLE] != retour[TAILLE]);
+    }while (mot_de_passe[8] != retour[8]);
 }
 void scores()
 {
@@ -250,7 +233,7 @@ void menu()
             }
             case '3':
             {
-                charger_une_partie();
+                jeu(0,0,2);
                 break;
             }
             case '4':
@@ -280,7 +263,7 @@ void Color(int couleurTexte, int couleurFond){
 
 int main()
 {
-    Color(16,6);
+    Color(4,14);
     menu();
     return 0;
 }
