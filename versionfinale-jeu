@@ -18,6 +18,7 @@ void score(int score, int niv)
 {
     int scoreduniveau;
     int scoretotal = 0;
+    scoreduniveau = timer*100;
     printf("Le score du niveau %d est : %d\n", niv,scoreduniveau);
     scoretotal += scoreduniveau;
     printf("le score total est : %d\n", scoretotal);
@@ -132,6 +133,8 @@ void jeu(int niv,int victoire,int partie)
                             Tableau[4][8] = S;
                             Xi = 4;Yi = 8;
                             stockeur = VIDE;
+                            timer = 120;
+                            seconds = (temps_ecoule/1000)+seconds;
                         }
                         Tableau[B.X][B.Y] = CODEBALLE;
                         n++;
@@ -151,16 +154,14 @@ void jeu(int niv,int victoire,int partie)
                     bloc_depop(j);
                     apparition+7;
                 }
-                timeur = seconds - (temps_ecoule / 1000);
+                timer = seconds - (temps_ecoule / 1000);
+                printf(" \rTemps restant : %d ", timeur);
                 printf(" Vie restantes : %d",compteur_vie);
-                printf(" Temps restant : %d\r ", timeur);
                 i++;
             }
-            if(i == 120)
+            if(temps == 0)
             {
                 compteur_vie--;
-                i = 0;
-                temps_ecoule = 0;
             }
         }while(1);
     }
