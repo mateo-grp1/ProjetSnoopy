@@ -4,9 +4,9 @@
 #define COLONNE 20
 #define TAILLE 20
 //blocs
-#define BORDUREHORIZONTALE '_' //0xCD
-#define BORDUREVERTICALE  '|' //0xBA
-#define VIDE ' '
+#define BORDUREHORIZONTALE 'X' //0xCD
+#define BORDUREVERTICALE  'X' //0xBA
+#define VIDE '.'
 #define BLOC_AMOVIBLE 'X'
 #define BLOC_MOVIBLE 'M'
 #define BLOC_CASSABLE 'C'
@@ -16,8 +16,10 @@
 #define TRQ 'Q'
 #define TRS 'S'
 #define TRD 'D'
+#define TELEPORTEUR1 'A'
+#define TELEPORTEUR2 'B'
 //personnages
-#define S '$'
+#define S 'J'
 #define OISEAU 'V'
 #define CODEBALLE 'O'
 //menu et actions
@@ -26,20 +28,23 @@ void menu_touche(int jeu ,char monter,char gauche,char descendre,char droite ,ch
 void menu_pause(int choix,int niv);
 //jeu
 void jeu(int niv,int victoire, int partie);
-void acquisition_touche(char monter,char gauche,char descendre,char droite ,char casser,char pause);
+void acquisition_touche(int niv ,char monter,char gauche,char descendre,char droite ,char casser,char pause);
 int changeur_de_touche(int jeu,char monter,char gauche,char descendre,char droite ,char casser,char pause);
 //interactions
 int mouvement(int Xm, int Ym, int Xr, int Yr);
+void surprise();
 //map
 int generation_map_test(int niv,int partie);
 void generator_bordure();
 void generator_niv(int niv);
+void bloc_depop(int j);
 //afficheur
 void affichage_tableau();
 void gotoligcol(int lig, int col);
 //sauvegarde
-int sauvegarde( int choix);
-int charge(int choix, int num_save);
-void save_touche(int choix,int jeu, char monter,char gauche, char descendre, char droite, char casser, char pause);
-void videur();
+void rAm(int choix);
+void menu_charge();
+void menu_save();
+void save_supp(int choix,int compteur_vie,int compteur_oiseau,int temps_restant,int Xi,int Yi);
+void save_touche(int choix,int jeu,int niv, char monter,char gauche, char descendre, char droite, char casser, char pause);
 #endif //VERSION_OFFICIELLE_BIBLIO_FONCTION_H
