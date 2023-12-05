@@ -7,216 +7,212 @@ extern int NIV;
 
 extern char Tableau[LIGNE][COLONNE];
 
-int sauvegarde( int choix)
+struct Balle {
+    int X,Y,vecX,vecY;
+};
+
+void save_supp(int choix,int compteur_vie,int compteur_oiseau,int temps_restant,int Xi,int Yi)
 {
-    if ( choix == 1 )
+    struct Balle B;
+    switch(choix)
     {
-        FILE *fichier=NULL;
-        fichier = fopen("RAM.txt", "w");
-
-        if(fichier==NULL){
-            printf("Echec lors de l'ouverture.\n");
-            return 1;
-        }
-        for (int i = 0; i<LIGNE; i++){
-            for (int j=0; j<COLONNE; j++) {
-                fprintf(fichier, " %c", Tableau[i][j]);
-            }
-            fprintf(fichier, "\n");
-        }
-        fclose(fichier);
-        menu_pause(0,NIV);
-    }
-    else
-    {
-        char nom1[TAILLE+1],nom2[TAILLE+1],nom3[TAILLE+1];
-        FILE *fichier=NULL;
-        system("cls");
-        /*FILE *fc;
-        fc=fopen ("fichier.ext","r");
-        if (fc==0) printf ("fichier vierge");
-        fclose (fc);*/
-        printf("Menu Sauvegarde\n"
-               "1 : \n"
-               "2 : \n"
-               "3 : \n"
-               "Choississez ou sauvegarder votre partie\n"
-               "Pour retourner au menu pause, taper 4");
-        do
+        case 1 :
         {
-            choix = _getch();
-        }while (!(choix == '1' || choix == '2'||choix == '3'||choix == '4'));
-        switch(choix)
-        {
-            case 1 :
-            {
-                charge(1,0);
-                fichier = fopen("save1.txt", "w");
+            FILE *fichier_balle=NULL;
+            fichier_balle = fopen("../save_supp.txt", "w");
 
-                if(fichier==NULL){
-                    printf("Echec lors de l'ouverture.\n");
-                    break;
-                }
-                printf("Quel est le nom de votre sauvegarde ? \n");
-                scanf("%c",&nom1[TAILLE]);
-                fprintf(fichier, " %c\n", nom1[TAILLE]);
-                for (int i = 0; i<LIGNE; i++){
-                    for (int j=0; j<COLONNE; j++) {
-                        fprintf(fichier, " %c", Tableau[i][j]);
-                    }
-                    fprintf(fichier, "\n");
-                }
-                fclose(fichier);
-                break;
+            if(fichier_balle==NULL){
+                printf("Echec lors de l'ouverture.\n");
             }
-            case 2 :
-            {
-                charge(1,0);
-                fichier = fopen("save2.txt", "w");
-
-                if(fichier==NULL){
-                    printf("Echec lors de l'ouverture.\n");
-                    break;
-                }
-                printf("Quel est le nom de votre sauvegarde ? \n");
-                scanf("%c",&nom2[TAILLE]);
-                fprintf(fichier, " %c\n", nom2[TAILLE]);
-                for (int i = 0; i<LIGNE; i++){
-                    for (int j=0; j<COLONNE; j++) {
-                        fprintf(fichier, " %c", Tableau[i][j]);
-                    }
-                    fprintf(fichier, "\n");
-                }
-                fclose(fichier);
-                break;
-            }
-            case 3 :
-            {
-                charge(1,0);
-                fichier = fopen("save3.txt", "w");
-
-                if(fichier==NULL){
-                    printf("Echec lors de l'ouverture.\n");
-                    break;
-                }
-                printf("Quel est le nom de votre sauvegarde ? \n");
-                scanf("%c",&nom3[TAILLE]);
-                fprintf(fichier, " %c\n", nom3[TAILLE]);
-                for (int i = 0; i<LIGNE; i++){
-                    for (int j=0; j<COLONNE; j++) {
-                        fprintf(fichier, " %c", Tableau[i][j]);
-                    }
-                    fprintf(fichier, "\n");
-                }
-                fclose(fichier);
-                break;
-            }
-            case 4 :
-            {
-                menu_pause(0,NIV);
-                break;
-            }
+            fprintf(fichier_balle, "%d %d %d %d %d %d %d %d",B.X,B.Y,B.vecX,B.vecY,compteur_vie,compteur_oiseau,temps_restant,Xi,Yi);
+            fclose(fichier_balle);
+            break;
         }
-        sauvegarde(0);
+        case 2 :
+        {
+            FILE *fichier=NULL;
+            fichier = fopen("../save_supp.txt", "r");
+            fscanf(fichier, "%d %d %d %d %d %d %d %d",&B.X,&B.Y,&B.vecX,&B.vecY,&compteur_vie,&compteur_oiseau,&temps_restant,&Xi,&Yi);
+            fclose(fichier);
+            break;
+        }
     }
 }
 
-int charge(int choix, int num_save)
+void rAm(int choix)
 {
-    char nom1[TAILLE+1],nom2[TAILLE+1],nom3[TAILLE+1];
-    if ( choix == 1)
+    switch(choix)
     {
-        FILE *fichier=NULL;
-        fichier = fopen("RAM.txt", "r");
-        for (int i = 0; i<LIGNE; i++){
-            for (int j=0; j<COLONNE; j++) {
-                fscanf(fichier, " %c", &Tableau[i][j]);
-            }
-        }
-        fclose(fichier);
-        return 0;
-    }
-    else
-    {
-        switch (num_save)
+        case 1 :
         {
-            case 1 :
-            {
-                FILE *fichier=NULL;
-                fichier = fopen("save1.txt", "r");
-
-                for (int i = 0; i<LIGNE; i++){
-                    for (int j=0; j<COLONNE; j++) {
-                        fscanf(fichier, " %c", &Tableau[i][j]);
-                    }
+            FILE* ram = fopen("../ram.txt", "w");
+            for(int l = 0 ; l <= LIGNE-1 ;l++) {
+                for( int c = 0 ; c <= COLONNE-1 ; c++) {
+                    fprintf(ram," %c", Tableau[l][c]) ;
                 }
-                fclose(fichier);
-                for (int i = 0; i<LIGNE; i++){
-                    for (int j=0; j<COLONNE; j++) {
-                        printf(" %c", Tableau[i][j]);
-                    }
-                    printf("\n");
-                }
-                break;
+                fprintf(ram,"\n");
             }
-            case 2 :
-            {
-                FILE *fichier=NULL;
-                fichier = fopen("save2.txt", "r");
-
-                for (int i = 0; i<LIGNE; i++){
-                    for (int j=0; j<COLONNE; j++) {
-                        fscanf(fichier, " %c", &Tableau[i][j]);
-                    }
+            fclose(ram);
+            ram = NULL;
+            break;
+        }
+        case 2 :
+        {
+            FILE* ram = fopen("../ram.txt", "r");
+            for(int l = 0 ; l <= LIGNE-1 ;l++) {
+                for( int c = 0 ; c <= COLONNE-1 ; c++) {
+                    fscanf(ram," %c", &Tableau[l][c]) ;
                 }
-                fclose(fichier);
-                for (int i = 0; i<LIGNE; i++){
-                    for (int j=0; j<COLONNE; j++) {
-                        printf(" %c", Tableau[i][j]);
-                    }
-                    printf("\n");
-                }
-                break;
             }
-            case 3 :
-            {
-                FILE *fichier=NULL;
-                fichier = fopen("save3.txt", "r");
-
-                for (int i = 0; i<LIGNE; i++){
-                    for (int j=0; j<COLONNE; j++) {
-                        fscanf(fichier, " %c", &Tableau[i][j]);
-                    }
-                }
-                fclose(fichier);
-                for (int i = 0; i<LIGNE; i++){
-                    for (int j=0; j<COLONNE; j++) {
-                        printf(" %c", Tableau[i][j]);
-                    }
-                    printf("\n");
-                }
-                break;
-            }
+            fclose(ram);
+            ram = NULL;
+            break;
+        }
+        case 3 :
+        {
+            FILE *fc;
+            fc=fopen("../ram.txt","w");
+            fclose(fc);
+            break;
         }
     }
-    return 0;
 }
-
-void videur()
+void menu_save()
 {
-    FILE *fc;
-    fc=fopen("RAM.txt","w");
-    fclose(fc);
+    char choix;
+    system("cls");
+    printf("Ou voulez vous save ? \n"
+           "1 : \n"
+           "2 : \n"
+           "3 : \n"
+           "Attention vous risquez de détruire votre sauvegarde précedente si vous enregistrer dans un fichier deja plein !!\n"
+           "tapez 4 pour retourner au menu\n");
+    do
+    {
+        choix = _getch();
+    }while(!(choix == '1'|| choix == '2'||choix == '3'||choix == '4'));
+    switch(choix)
+    {
+        case '1' :
+        {
+            FILE* save1 = fopen("../save1.txt", "w");
+            for(int l = 0 ; l <= LIGNE-1 ;l++) {
+                for( int c = 0 ; c <= COLONNE-1 ; c++) {
+                    fprintf(save1," %c", Tableau[l][c]) ;
+                }
+                fprintf(save1,"\n");
+            }
+            fclose(save1);
+            save1 = NULL;
+            break;
+        }
+        case '2' :
+        {
+            FILE* save2 = fopen("../save2.txt", "w");
+            for(int l = 0 ; l <= LIGNE-1 ;l++) {
+                for( int c = 0 ; c <= COLONNE-1 ; c++) {
+                    fprintf(save2," %c", Tableau[l][c]) ;
+                }
+                fprintf(save2,"\n");
+            }
+            fclose(save2);
+            save2 = NULL;
+            break;
+        }
+        case '3' :
+        {
+            FILE* save3 = fopen("../save3.txt", "w");
+            for(int l = 0 ; l <= LIGNE-1 ;l++) {
+                for( int c = 0 ; c <= COLONNE-1 ; c++) {
+                    fprintf(save3," %c", Tableau[l][c]) ;
+                }
+                fprintf(save3,"\n");
+            }
+            fclose(save3);
+            save3 = NULL;
+            break;
+        }
+        case '4':
+        {
+            rAm(3);
+            menu();
+            break;
+        }
+    }
+    menu_save();
 }
 
-void save_touche(int choix,int jeu, char monter,char gauche, char descendre, char droite, char casser, char sauvegarder)
+void menu_charge()
+{
+    char choix;
+    system("cls");
+    printf("Quel sauvegard voulez vous charger ? \n"
+           "1 : \n"
+           "2 : \n"
+           "3 : \n");
+    do
+    {
+        choix = _getch();
+    }while(!(choix == '1'|| choix == '2'||choix == '3'));
+    switch(choix)
+    {
+        case '1' :
+        {
+            FILE* pf = fopen("../save1.txt", "r");
+            if (pf == NULL) {
+                printf("cette sauvegarde est vide\n");
+            }
+            for(int l = 0 ; l <= LIGNE-1 ;l++) {
+                for( int c = 0 ; c <= COLONNE-1 ; c++) {
+                    fscanf(pf," %c", &Tableau[l][c]) ;
+                }
+            }
+            fclose(pf);
+            pf = NULL;
+            break;
+        }
+        case '2' :
+        {
+            FILE* pf = fopen("../save2.txt", "r");
+            if (pf == NULL) {
+                printf("cette sauvegarde est vide\n");
+            }
+            for(int l = 0 ; l <= LIGNE-1 ;l++) {
+                for( int c = 0 ; c <= COLONNE-1 ; c++) {
+                    fscanf(pf," %c", &Tableau[l][c]) ;
+                }
+            }
+            fclose(pf);
+            pf = NULL;
+            break;
+        }
+        case '3' :
+        {
+            FILE* pf = fopen("../save3.txt", "r");
+            if (pf == NULL) {
+                printf("cette sauvegarde est vide\n");
+            }
+            for(int l = 0 ; l <= LIGNE-1 ;l++) {
+                for( int c = 0 ; c <= COLONNE-1 ; c++) {
+                    fscanf(pf," %c", &Tableau[l][c]) ;
+                }
+            }
+            fclose(pf);
+            pf = NULL;
+            break;
+        }
+    }
+    affichage_tableau();
+}
+
+void save_touche(int choix,int jeu,int niv, char monter,char gauche, char descendre, char droite, char casser, char sauvegarder)
 {
     switch(choix)
     {
         case 1 :
         {
             FILE *fichier=NULL;
-            fichier = fopen("touche.txt", "w");
+            fichier = fopen("../touche.txt", "w");
 
             if(fichier==NULL){
                 printf("Echec lors de l'ouverture.\n");
@@ -228,7 +224,7 @@ void save_touche(int choix,int jeu, char monter,char gauche, char descendre, cha
         case 2 :
         {
             FILE *fichier=NULL;
-            fichier = fopen("touche.txt", "r");
+            fichier = fopen("../touche.txt", "r");
             fscanf(fichier, "%c %c %c %c %c %c",&monter,&gauche,&descendre,&droite,&casser,&sauvegarder);
             fclose(fichier);
             switch ( jeu )
@@ -237,9 +233,12 @@ void save_touche(int choix,int jeu, char monter,char gauche, char descendre, cha
                     menu_touche(jeu,monter,gauche,descendre,droite,casser,sauvegarder);
                     break;
                 case 1 :
-                    acquisition_touche(monter,gauche,descendre,droite,casser,sauvegarder);
+                    acquisition_touche(niv,monter,gauche,descendre,droite,casser,sauvegarder);
                     break;
             }
         }
     }
 }
+
+
+
