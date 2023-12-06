@@ -5,6 +5,7 @@
 char Tableau[LIGNE][COLONNE];
 //coordonnées initiales
 int Xi = 4,Yi = 8;
+char pop_depop = POP_DEPOP;
 
 int generation_map_test(int niv, int partie)
 {
@@ -55,7 +56,7 @@ int generation_map_test(int niv, int partie)
                 //génération des blocs
                 generator_niv(3);
                 //initialisation pero
-                Xi = 4,Yi =8 ;
+                Xi = 5,Yi =10 ;
                 Tableau[Xi][Yi] = S;
                 break;
             }
@@ -78,9 +79,9 @@ int generation_map_test(int niv, int partie)
 // affichage du tableau
 void affichage_tableau()
 {
-    for(int l = 0 ; l <= LIGNE-1 ;l++) {
-        for( int c = 0 ; c <= COLONNE-1 ; c++) {
-            gotoligcol(l, c*2);
+    for(short l = 0 ; l <= LIGNE-1 ;l++) {
+        for( short c = 0 ; c <= COLONNE-1 ; c++) {
+            gotoligcol(l,c*2);
             printf(" %c", Tableau[l][c]) ;
         }
         printf("\n");
@@ -232,7 +233,7 @@ void generator_niv(int niv)
             Tableau[6][1] = BLOC_MOVIBLE;
             Tableau[7][4] = SURPRISE;
 
-            for (int i = 14;i<17;i++){Tableau[1][i] = TRZ;}
+            for (int i = 14;i<17;i++){Tableau[1][i] = TRQ;}
             //blocs fixes par lignes
             for (int i = 3;i<6;i++){Tableau[8][i] = BLOC_AMOVIBLE;}
             for (int i = 2;i<5;i++){Tableau[i][5] = BLOC_AMOVIBLE;}
@@ -260,6 +261,96 @@ void generator_niv(int niv)
             Tableau[7][16] = BLOC_AMOVIBLE;
 
             break;
+
+            case 4:
+
+                //blocs fixes
+                Tableau[1][10] = BLOC_AMOVIBLE;
+            Tableau[1][12] = BLOC_AMOVIBLE;
+            Tableau[1][15] = BLOC_AMOVIBLE;
+            Tableau[2][13] = BLOC_AMOVIBLE;
+            Tableau[4][4] = BLOC_AMOVIBLE;
+            Tableau[4][7] = BLOC_AMOVIBLE;
+            Tableau[4][10] = BLOC_AMOVIBLE;
+            Tableau[4][11] = BLOC_AMOVIBLE;
+            Tableau[4][15] = BLOC_AMOVIBLE;
+            Tableau[5][3] = BLOC_AMOVIBLE;
+            Tableau[5][7] = BLOC_AMOVIBLE;
+            Tableau[5][9] = BLOC_AMOVIBLE;
+            Tableau[5][13] = BLOC_AMOVIBLE;
+            Tableau[5][16] = BLOC_AMOVIBLE;
+            Tableau[6][11] = BLOC_AMOVIBLE;
+            Tableau[6][15] = BLOC_AMOVIBLE;
+            Tableau[7][1] = BLOC_AMOVIBLE;
+            Tableau[7][2] = BLOC_AMOVIBLE;
+            Tableau[7][3] = BLOC_AMOVIBLE;
+            Tableau[7][5] = BLOC_AMOVIBLE;
+            Tableau[7][9] = BLOC_AMOVIBLE;
+            Tableau[7][11] = BLOC_AMOVIBLE;
+            Tableau[7][17] = BLOC_AMOVIBLE;
+            Tableau[8][9] = BLOC_AMOVIBLE;
+            Tableau[8][13] = BLOC_AMOVIBLE;
+
+            //piege
+            Tableau[1][3] = PIEGE;
+            Tableau[2][11] = PIEGE;
+            Tableau[2][17] = PIEGE;
+            Tableau[3][1] = PIEGE;
+            Tableau[5][5] = PIEGE;
+            Tableau[5][15] = PIEGE;
+            Tableau[7][4] = PIEGE;
+            Tableau[7][7] = PIEGE;
+            Tableau[7][16] = PIEGE;
+            Tableau[8][8] = PIEGE;
+            Tableau[8][10] = PIEGE;
+
+            //blocs cassables
+            Tableau[4][14] = BLOC_CASSABLE;
+            Tableau[6][3] = BLOC_CASSABLE;
+            Tableau[8][4] = BLOC_CASSABLE;
+            Tableau[8][15] = BLOC_CASSABLE;
+
+            Tableau[4][2] = BLOC_MOVIBLE;
+            Tableau[6][7] = SURPRISE;
+            Tableau[8][16] = SURPRISE;
+
+            //tapis
+            Tableau[2][3] = TRZ;
+            Tableau[2][11] = TRZ;
+            Tableau[2][14] = TRZ;
+            Tableau[2][16] = TRZ;
+            Tableau[3][3] = TRZ;
+            Tableau[3][14] = TRZ;
+            Tableau[3][16] = TRZ;
+            Tableau[3][17] = TRZ;
+            Tableau[4][12] = TRZ;
+
+            Tableau[2][4] = TRQ;
+            Tableau[2][5] = TRQ;
+            Tableau[2][6] = TRQ;
+            Tableau[2][7] = TRQ;
+            Tableau[2][8] = TRQ;
+            Tableau[2][9] = TRQ;
+            Tableau[3][7] = TRQ;
+            Tableau[3][8] = TRQ;
+            Tableau[3][9] = TRQ;
+            Tableau[6][17] = TRQ;
+
+            Tableau[2][1] = TRS;
+            Tableau[2][18] = TRS;
+            Tableau[3][18] = TRS;
+            Tableau[5][8] = TRS;
+            Tableau[6][8] = TRS;
+            Tableau[6][10] = TRS;
+            Tableau[6][12] = TRS;
+            Tableau[7][8] = TRS;
+            Tableau[7][12] = TRS;
+
+            Tableau[1][16] = TRD;
+            Tableau[1][17] = TRD;
+            Tableau[5][4] = TRD;
+            Tableau[7][15] = TRD;
+            Tableau[8][7] = TRD;
         }
     }
 }
@@ -268,17 +359,14 @@ void bloc_depop(int j)
 {
     if (j == 1)
     {
-        Tableau[1][3] = 'G';
-        Tableau[3][2] = 'G';
-        Tableau[3][8] = 'G';
-        Tableau[6][8] = 'G';
+        pop_depop = POP_DEPOP;
     }
-    if (j == 0)
+    else if (j == 0)
     {
-        Tableau[1][3] = VIDE;
-        Tableau[3][2] = VIDE;
-        Tableau[3][8] = VIDE;
-        Tableau[6][8] = VIDE;
+        pop_depop = VIDE;
     }
+    Tableau[1][2] = pop_depop;
+    Tableau[3][2] = pop_depop;
+    Tableau[6][6] = pop_depop;
     affichage_tableau();
 }
