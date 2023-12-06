@@ -4,22 +4,23 @@
 #define COLONNE 20
 #define TAILLE 20
 //blocs
-#define BORDUREHORIZONTALE 'X' //0xCD
-#define BORDUREVERTICALE  'X' //0xBA
+#define BORDUREHORIZONTALE '='
+#define BORDUREVERTICALE  '|'
 #define VIDE '.'
-#define BLOC_AMOVIBLE 'X'
+#define BLOC_AMOVIBLE '#'
 #define BLOC_MOVIBLE 'M'
 #define BLOC_CASSABLE 'C'
 #define SURPRISE 'T'
 #define PIEGE 'P'
-#define TRZ 'Z'
-#define TRQ 'Q'
-#define TRS 'S'
-#define TRD 'D'
+#define TRZ '^'
+#define TRQ '<'
+#define TRS 'v'
+#define TRD '>'
 #define TELEPORTEUR1 'A'
 #define TELEPORTEUR2 'B'
+#define POP_DEPOP 'N'
 //personnages
-#define S 'J'
+#define S '$'
 #define OISEAU 'V'
 #define CODEBALLE 'O'
 //menu et actions
@@ -27,8 +28,9 @@ void menu();
 void menu_touche(int jeu ,char monter,char gauche,char descendre,char droite ,char casser,char pause);
 void menu_pause(int choix,int niv);
 //jeu
-void jeu(int niv,int victoire, int partie);
+void jeu(int niv,int victoire, int partie,int pausE);
 void acquisition_touche(int niv ,char monter,char gauche,char descendre,char droite ,char casser,char pause);
+void acquisition_touche_fleche(int niv, char casser,char pause);
 int changeur_de_touche(int jeu,char monter,char gauche,char descendre,char droite ,char casser,char pause);
 //interactions
 int mouvement(int Xm, int Ym, int Xr, int Yr);
@@ -40,14 +42,18 @@ void generator_niv(int niv);
 void bloc_depop(int j);
 //afficheur
 void affichage_tableau();
-void gotoligcol(int lig, int col);
+void gotoligcol(short lig, short col);
 //sauvegarde
 void rAm(int choix);
 void menu_charge();
 void menu_save();
-void save_supp(int choix,int compteur_vie,int compteur_oiseau,int temps_restant,int Xi,int Yi);
+void save_supp(int choix,int compteur_vie,int compteur_oiseau,int temps_restant,int score,int score_tt);
 void save_touche(int choix,int jeu,int niv, char monter,char gauche, char descendre, char droite, char casser, char pause);
-void oiseau(int choix, int compteur_oiseau);
-void temps(int choix,int timeur, int compteur_vie);
+void sava(int temps,int score,int score_tt);
 void score_save(int score, int niv, int scoretotal, int choix);
+void temps(int choix,int timeur, int compteur_vie);
+void oiseau(int choix,int compteur_oiseau);
+void vie(int choix, int compteur_vie);
+
+
 #endif //VERSION_OFFICIELLE_BIBLIO_FONCTION_H
