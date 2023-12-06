@@ -78,7 +78,6 @@ int generation_map_test(int niv, int partie)
 // affichage du tableau
 void affichage_tableau()
 {
-    system("cls");
     for(int l = 0 ; l <= LIGNE-1 ;l++) {
         for( int c = 0 ; c <= COLONNE-1 ; c++) {
             gotoligcol(l, c*2);
