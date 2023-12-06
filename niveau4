@@ -1,0 +1,90 @@
+case 4 :
+
+                //blocs fixes
+                Tableau[1][10] = BLOC_AMOVIBLE;
+                Tableau[1][12] = BLOC_AMOVIBLE;
+                Tableau[1][15] = BLOC_AMOVIBLE;
+                Tableau[2][13] = BLOC_AMOVIBLE;
+                Tableau[4][4] = BLOC_AMOVIBLE;
+                Tableau[4][7] = BLOC_AMOVIBLE;
+                Tableau[4][10] = BLOC_AMOVIBLE;
+                Tableau[4][11] = BLOC_AMOVIBLE;
+                Tableau[4][15] = BLOC_AMOVIBLE;
+                Tableau[5][3] = BLOC_AMOVIBLE;
+                Tableau[5][7] = BLOC_AMOVIBLE;
+                Tableau[5][9] = BLOC_AMOVIBLE;
+                Tableau[5][13] = BLOC_AMOVIBLE;
+                Tableau[5][16] = BLOC_AMOVIBLE;
+                Tableau[6][11] = BLOC_AMOVIBLE;
+                Tableau[6][15] = BLOC_AMOVIBLE;
+                Tableau[7][1] = BLOC_AMOVIBLE;
+                Tableau[7][2] = BLOC_AMOVIBLE;
+                Tableau[7][3] = BLOC_AMOVIBLE;
+                Tableau[7][5] = BLOC_AMOVIBLE;
+                Tableau[7][9] = BLOC_AMOVIBLE;
+                Tableau[7][11] = BLOC_AMOVIBLE;
+                Tableau[7][17] = BLOC_AMOVIBLE;
+                Tableau[8][9] = BLOC_AMOVIBLE;
+                Tableau[8][13] = BLOC_AMOVIBLE;
+
+                //piege
+                Tableau[1][3] = PIEGE;
+                Tableau[2][11] = PIEGE;
+                Tableau[2][17] = PIEGE;
+                Tableau[3][1] = PIEGE;
+                Tableau[5][5] = PIEGE;
+                Tableau[5][15] = PIEGE;
+                Tableau[7][4] = PIEGE;
+                Tableau[7][7] = PIEGE;
+                Tableau[7][16] = PIEGE;
+                Tableau[8][8] = PIEGE;
+                Tableau[8][10] = PIEGE;
+
+                //blocs cassables
+                Tableau[4][14] = BLOC_CASSABLE;
+                Tableau[6][3] = BLOC_CASSABLE;
+                Tableau[8][4] = BLOC_CASSABLE;
+                Tableau[8][15] = BLOC_CASSABLE;
+
+                Tableau[4][2] = BLOC_MOVIBLE;
+                Tableau[6][7] = SURPRISE;
+                Tableau[8][16] = SURPRISE;
+
+                //tapis
+                Tableau[2][3] = TRZ;
+                Tableau[2][11] = TRZ;
+                Tableau[2][14] = TRZ;
+                Tableau[2][16] = TRZ;
+                Tableau[3][3] = TRZ;
+                Tableau[3][14] = TRZ;
+                Tableau[3][16] = TRZ;
+                Tableau[3][17] = TRZ;
+                Tableau[4][12] = TRZ;
+
+                Tableau[2][4] = TRQ;
+                Tableau[2][5] = TRQ;
+                Tableau[2][6] = TRQ;
+                Tableau[2][7] = TRQ;
+                Tableau[2][8] = TRQ;
+                Tableau[2][9] = TRQ;
+                Tableau[3][7] = TRQ;
+                Tableau[3][8] = TRQ;
+                Tableau[3][9] = TRQ;
+                Tableau[6][17] = TRQ;
+
+                Tableau[2][1] = TRS;
+                Tableau[2][18] = TRS;
+                Tableau[3][18] = TRS;
+                Tableau[5][8] = TRS;
+                Tableau[6][8] = TRS;
+                Tableau[6][10] = TRS;
+                Tableau[6][12] = TRS;
+                Tableau[7][8] = TRS;
+                Tableau[7][12] = TRS;
+
+                Tableau[1][16] = TRD;
+                Tableau[1][17] = TRD;
+                Tableau[5][4] = TRD;
+                Tableau[7][15] = TRD;
+                Tableau[8][7] = TRD;
+            }
