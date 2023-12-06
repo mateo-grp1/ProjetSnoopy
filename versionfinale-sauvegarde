@@ -4,40 +4,12 @@
 #include "biblio_fonction.h"
 
 extern int NIV;
-
+extern int compteur_oiseau;
 extern char Tableau[LIGNE][COLONNE];
 
 struct Balle {
     int X,Y,vecX,vecY;
 };
-
-void save_supp(int choix,int compteur_vie,int compteur_oiseau,int temps_restant,int Xi,int Yi)
-{
-    struct Balle B;
-    switch(choix)
-    {
-        case 1 :
-        {
-            FILE *fichier_balle=NULL;
-            fichier_balle = fopen("../save_supp.txt", "w");
-
-            if(fichier_balle==NULL){
-                printf("Echec lors de l'ouverture.\n");
-            }
-            fprintf(fichier_balle, "%d %d %d %d %d %d %d %d",B.X,B.Y,B.vecX,B.vecY,compteur_vie,compteur_oiseau,temps_restant,Xi,Yi);
-            fclose(fichier_balle);
-            break;
-        }
-        case 2 :
-        {
-            FILE *fichier=NULL;
-            fichier = fopen("../save_supp.txt", "r");
-            fscanf(fichier, "%d %d %d %d %d %d %d %d",&B.X,&B.Y,&B.vecX,&B.vecY,&compteur_vie,&compteur_oiseau,&temps_restant,&Xi,&Yi);
-            fclose(fichier);
-            break;
-        }
-    }
-}
 
 void rAm(int choix)
 {
@@ -235,10 +207,101 @@ void save_touche(int choix,int jeu,int niv, char monter,char gauche, char descen
                 case 1 :
                     acquisition_touche(niv,monter,gauche,descendre,droite,casser,sauvegarder);
                     break;
+                case 2 :
+                    //acquisition_touche_fleche(niv,casser,sauvegarder);
             }
         }
     }
 }
 
+void score_save(int score, int niv, int scoretotal, int choix){
+    switch(choix){
+        case 1 :{
+            FILE *fichier=NULL;
+            fichier = fopen("../score.txt", "w");
+            fprintf(fichier,"%d %d\n", score, scoretotal);
+            fclose(fichier);
+            fichier = NULL;
+            break;
+        }
+        case 2 : {
+            FILE *fichier = NULL;
+            fichier = fopen("../score.txt", "r");
+            fprintf(fichier, "%d %d\n", score, scoretotal);
+            fclose(fichier);
+            fichier = NULL;
+            break;
+        }
+    }
+}
 
-
+void temps(int choix,int timeur, int compteur_vie){
+    switch(choix){
+        case 1 :
+        {
+            FILE *fichier=NULL;
+            fichier = fopen("../temps.txt", "w");
+            fprintf(fichier,"%d %d\n", timeur, compteur_vie);
+            fclose(fichier);
+            fichier = NULL;
+            break;
+        }
+        case 2 :
+        {
+            FILE *fichier = NULL;
+            fichier = fopen("../temps.txt", "r");
+            fscanf(fichier, "%d %d\n", timeur, compteur_vie);
+            fclose(fichier);
+            fichier = NULL;
+            break;
+        }
+    }
+}
+void oiseau(int choix, int compteur_oiseau){
+    switch(choix){
+        case 1 :{
+            FILE *fichier=NULL;
+            fichier = fopen("../temps.txt", "w");
+            fprintf(fichier,"%d \n", compteur_oiseau);
+            fclose(fichier);
+            fichier = NULL;
+            break;
+        }
+        case 2 : {
+            FILE *fichier = NULL;
+            fichier = fopen("../temps.txt", "r");
+            fscanf(fichier, "%d\n", &compteur_oiseau);
+            fclose(fichier);
+            fichier = NULL;
+            break;
+        }
+    }
+}
+/*void ram_info(int choix)
+{
+    switch(choix)
+    {
+        case 1 :{
+            oiseau(2,0);
+            score_save(0,0,0,2);
+            break;
+        }
+        case 2 : {
+            FILE *fichier = NULL;
+            fichier = fopen("../temps.txt", "r");
+            fscanf(fichier, "%d\n", &compteur_oiseau);
+            fclose(fichier);
+            fichier = NULL;
+            break;
+        }
+        case 3 :
+        {
+            FILE *fichier = NULL;
+            fichier = fopen("../temps.txt", "r");
+            fscanf(fichier, "%d\n", &compteur_oiseau);
+            fclose(fichier);
+            fichier = NULL;
+            break;
+        }
+    }
+}*/
