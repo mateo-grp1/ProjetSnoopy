@@ -8,7 +8,9 @@ extern char Tableau[LIGNE][COLONNE];
 //coordonnées initiales
 extern int Xi,Yi;
 //compteur
-int compteur_vie = 3;
+extern int compteur_vie;
+extern int compteur_oiseau;
+int timer = 0;
 
 struct Balle {
     int X,Y,vecX,vecY;
@@ -18,10 +20,12 @@ void score(int score, int niv)
 {
     int scoreduniveau;
     int scoretotal = 0;
+    score_save(score,niv,scoretotal,2);
     scoreduniveau = timer*100;
     printf("Le score du niveau %d est : %d\n", niv,scoreduniveau);
     scoretotal += scoreduniveau;
     printf("le score total est : %d\n", scoretotal);
+    score_save(score,niv,scoretotal,1);
 }
 
 void acquisition_touche(int niv, char monter,char gauche,char descendre,char droite,char casser,char pause)
@@ -59,55 +63,93 @@ void acquisition_touche(int niv, char monter,char gauche,char descendre,char dro
     }
     else if ( touche == pause)
     {
-        //save_balle(1);
-        int* pniv = &niv;
         rAm(1);
+        oiseau(1,compteur_oiseau);
         menu_pause(0,niv);
     }
 }
+/*int touche,stock;
+void acquisition_touche_fleche(int niv, char casser,char pause)
+{
+    if(_kbhit())
+    {
+        stock = _getch();
+        touche = _getch();
+        //reponse à la touche
+        if ( touche == 72)
+        {
+            printf("%d", mouvement(Xi - 1, Yi, Xi - 2, Yi));
+        }
+        else if ( touche == 75)
+        {
+            printf("%d", mouvement(Xi, Yi - 1, Xi, Yi - 2));
+        }
+        else if ( touche == 80)
+        {
+            printf("%d",mouvement(Xi + 1, Yi, Xi + 2, Yi));
+        }
+        else if ( touche == 77)
+        {
+            printf("%d", mouvement(Xi, Yi + 1, Xi, Yi + 2));
+        }
+        else if ( touche == 'c')
+        {
+            if (Tableau[Xi-1][Yi] == BLOC_CASSABLE)
+                Tableau[Xi-1][Yi] = VIDE ;
+            if (Tableau[Xi+1][Yi] == BLOC_CASSABLE)
+                Tableau[Xi+1][Yi] = VIDE;
+            if (Tableau[Xi][Yi-1] == BLOC_CASSABLE)
+                Tableau[Xi][Yi-1] = VIDE;
+            if (Tableau[Xi][Yi+1] == BLOC_CASSABLE)
+                Tableau[Xi][Yi+1] = VIDE;
+            affichage_tableau();
+        }
+        else if ( touche == 'P')
+        {
+            rAm(1);
+            //save_supp(1,1,2,3,4,5);
+            menu_pause(0,niv);
+        }
+    }
+}*/
 
-void jeu(int niv,int victoire,int partie)
+void jeu(int niv,int victoire,int partie,int pausE)
 {
     //touches
     char  monter ='z', gauche = 'q',descendre = 's', droite = 'd',casser = 'c',pause = 'P';
     //timeur
-    int timeur = 0;
     int seconds = 120;
-    int i = 0 , n = 0 ,apparition = 0, j = 0;
+    int i = 0 , n = 0 ,apparition = 23, a = 22,d = 23;
     //stockeur
     char stockeur = VIDE;
     //balle
     int vitesse_balle = 1000;
-
+    int mode ;
+    //printf("Quel mode de touches(1 zqsd)(2 fleches)");
+    //scanf("%d",&mode);
     if (victoire == 0)
     {
         //intialisation map
         printf("%d", generation_map_test(niv, partie));
         struct Balle B;
-        if ( partie != 1)
+        B.vecX=1; B.vecY=1;
+        B.X=4; B.Y=1;
+        /*if(partie == 1)
         {
-            B.vecX=1; B.vecY=1;
-            B.X=4; B.Y=1;
-        }
-        else
-        {
-            /*FILE *fichier_balle;
-            fichier_balle = fopen("balle.txt", "r");
-            fscanf(fichier_balle, "%d %d %d %d",&B.X,&B.Y,&B.vecX,&B.vecY);
-            fclose(fichier_balle);*/
-        }
+            oiseau(2,0);
+            temps(2,0,0);
+            score_save(0,0,0,2);
+        }*/
         clock_t temps_ecoule;
         clock_t start_time = clock();
         do {
             if (compteur_vie == 0)
             {
-                jeu(0,-1,0);
+                jeu(0,-1,0,0);
             }
             //boucle d'acquisition
-            if (_kbhit())
-            {
-                save_touche(2,1,niv,monter,gauche,descendre,droite,casser,pause);
-            }
+            if (_kbhit()){ save_touche(2, 1, niv, monter, gauche, descendre, droite, casser, pause); }
+            //else if ( mode == 2){ save_touche(3, 1, niv, monter, gauche, descendre, droite, casser, pause); }
             temps_ecoule = clock() - start_time;
             if ( temps_ecoule/1000 == i )
             {
@@ -133,7 +175,7 @@ void jeu(int niv,int victoire,int partie)
                             Tableau[4][8] = S;
                             Xi = 4;Yi = 8;
                             stockeur = VIDE;
-                            timer = 120;
+                            timer=120;
                             seconds = (temps_ecoule/1000)+seconds;
                         }
                         Tableau[B.X][B.Y] = CODEBALLE;
@@ -141,27 +183,40 @@ void jeu(int niv,int victoire,int partie)
                         affichage_tableau();
                     }
                 }
-                if ( i == apparition)
+                if ( niv == 4)
                 {
-                    if (j == 0)
+                    if ((timer/5) == apparition)
                     {
-                        j++;
+                        if (apparition == a)
+                        {
+                            bloc_depop(0);
+                            a = a-2;
+                        }
+                        if (apparition == d)
+                        {
+                            bloc_depop(1);
+                            d = d-2;
+                        }
+                        apparition--;
+                        if (Tableau[Xi][Yi] == POP_DEPOP){
+                            Xi=4;
+                            Yi=8;
+                            Tableau[Xi][Yi] = S;
+                            compteur_vie--;
+                        }
                     }
-                    else if (j == 1)
-                    {
-                       j--;
-                    }
-                    bloc_depop(j);
-                    apparition+7;
                 }
-                timer = seconds - (temps_ecoule / 1000);
-                printf(" \rTemps restant : %d ", timeur);
+                timer = seconds - i;
+                temps(1,timer,compteur_vie);
                 printf(" Vie restantes : %d",compteur_vie);
+                printf(" Temps restant : %d\r ", timer);
                 i++;
             }
-            if(temps == 0)
+            if(i == 120)
             {
                 compteur_vie--;
+                i = 0;
+                temps_ecoule = 0;
             }
         }while(1);
     }
@@ -177,7 +232,7 @@ void jeu(int niv,int victoire,int partie)
             }
             compteur_vie = 3;
             partie =  0;
-            jeu(niv,0,partie);
+            jeu(niv,0,partie,0);
         }
         else if (victoire == -1)
         {
@@ -203,7 +258,7 @@ void menu_pause(int choix,int niv)
     {
         case '1' :
         {
-            jeu(niv,0,1);
+            jeu(niv,0,1,0);
             break;
         }
         case '2' :
@@ -213,7 +268,6 @@ void menu_pause(int choix,int niv)
         }
         case '3' :
         {
-            rAm(3);
             menu();
             break;
         }
