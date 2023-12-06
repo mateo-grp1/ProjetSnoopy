@@ -4,7 +4,7 @@
 #include <conio.h>
 #include "biblio_fonction.h"
 
-void gotoligcol(int lig, int col)
+void gotoligcol(short lig, short col)
 {
     COORD mycoord;
     mycoord.X = col;
@@ -155,7 +155,7 @@ void mot_de_passe()
 {
     printf("Rentrez un mot de passe \n"
            "Pour revenir au menu taper 1\n");
-    char mot_de_passe[10] = " ";
+    char mot_de_passe[TAILLE];
     char code1[] = "niv1eau";
     char code2[] = "niv2eau";
     char code3[] = "niv3eau";
@@ -163,26 +163,27 @@ void mot_de_passe()
     char retour[] = "1";
     do
     {
-        scanf("%c",&mot_de_passe[8]);
+        scanf("%s", mot_de_passe);
 
-        if (mot_de_passe[8] == code1[8])
+        if (strcmp(mot_de_passe,code1) == 0)
         {
-            jeu(1,0,0);
+            jeu(1,0,0,0);
         }
-        else if (mot_de_passe[8] == code2[8])
+        else if (strcmp(mot_de_passe, code2) == 0)
         {
-            jeu(2,0,0);
+            jeu(2,0,0,0);
         }
-        else if (mot_de_passe[8] == code3[8])
+        else if (strcmp(mot_de_passe, code3) == 0)
         {
-            jeu(3,0,0);
+            jeu(3,0,0,0);
         }
-        else if (mot_de_passe[8] == code4[8])
+        else if (strcmp(mot_de_passe, code4) == 0)
         {
-            jeu(4,0,0);
+            jeu(4,0,0,0);
         }
-    }while (mot_de_passe[8] != retour[8]);
+    }while (strcmp(mot_de_passe,retour) != 0);
 }
+
 void scores()
 {
     int score = 0;
@@ -205,6 +206,8 @@ void menu()
     system("cls");
     do
     {
+        rAm(3);
+        //save_supp(1,0,0,0,0,0);
         // Affichage du menu
         int tailleTexte = 60;
         char texte[] = "SNOOPY : LA REVANCHE";
@@ -228,12 +231,12 @@ void menu()
             }
             case '2':
             {
-                jeu(1,0,0);
+                jeu(1,0,0,0);
                 break;
             }
             case '3':
             {
-                jeu(0,0,2);
+                jeu(0,0,2,0);
                 break;
             }
             case '4':
