@@ -9,7 +9,7 @@ extern int Xi,Yi;
 //variables
 int NIV = 1;
 int compteur_oiseau = 4;
-extern int compteur_vie ;
+int compteur_vie = 3;
 
 int deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
 {
@@ -114,7 +114,7 @@ int deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
                 //modification du stockeur
                 stockeur = VIDE;
                 compteur_oiseau = 4;
-                jeu(NIV,1,0);
+                jeu(NIV,1,0,0);
             }
         }
         else if (stockeur == PIEGE)
@@ -122,7 +122,7 @@ int deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
             //modification du stockeur
             stockeur = VIDE;
             compteur_oiseau = 4;
-            jeu(0,-1,0);
+            jeu(0,-1,0,0);
         }
         else if (stockeur == CODEBALLE)
         {
@@ -151,14 +151,14 @@ int deplacement(int* pXm, int* pYm,int* pXr, int* pYr)
 int mouvement(int Xm, int Ym, int Xr, int Yr)
 {
 //vérifiaction de la possibilité d'execution du mouvement en cas de bordure ou de bloc fixe
-    if(Tableau[Xm][Ym] == BLOC_AMOVIBLE||Tableau[Xm][Ym] == BORDUREVERTICALE||Tableau[Xm][Ym] == BORDUREHORIZONTALE||Tableau[Xm][Ym] == BLOC_CASSABLE)
+    if(Tableau[Xm][Ym] == BLOC_AMOVIBLE||Tableau[Xm][Ym] == BORDUREVERTICALE||Tableau[Xm][Ym] == BORDUREHORIZONTALE||Tableau[Xm][Ym] == BLOC_CASSABLE||Tableau[Xm][Ym] == POP_DEPOP)
     {
         affichage_tableau();
     }
         //vérification en cas de bloc movible
     else if (Tableau[Xm][Ym] == BLOC_MOVIBLE)
     {
-        if(Tableau[Xr][Yr] == BLOC_AMOVIBLE||Tableau[Xm][Ym] == BORDUREVERTICALE||Tableau[Xm][Ym] == BORDUREHORIZONTALE||Tableau[Xr][Yr] == BLOC_CASSABLE||Tableau[Xr][Yr] == BLOC_MOVIBLE)
+        if(Tableau[Xr][Yr] == BLOC_AMOVIBLE||Tableau[Xm][Ym] == BORDUREVERTICALE||Tableau[Xm][Ym] == BORDUREHORIZONTALE||Tableau[Xr][Yr] == BLOC_CASSABLE||Tableau[Xr][Yr] == BLOC_MOVIBLE||Tableau[Xr][Yr] == POP_DEPOP)
         {
             affichage_tableau();
         }
